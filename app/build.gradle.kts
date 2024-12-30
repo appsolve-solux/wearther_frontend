@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.jm.appsolve_fe"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.jm.appsolve_fe"
