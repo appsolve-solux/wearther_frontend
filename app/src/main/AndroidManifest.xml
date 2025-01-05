@@ -12,7 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Appsolve_FE"
         tools:targetApi="31">
-        <activity android:name=".LoginSplashActivity" android:exported="true">
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginSplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,9 +26,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>
