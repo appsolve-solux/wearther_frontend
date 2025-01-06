@@ -87,14 +87,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1분"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="이면 회원가입 가능해요."
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="@color/gray_9E9E9E"/>
             </LinearLayout>
 
@@ -148,41 +148,35 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
             android:orientation="horizontal">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
+            <ImageView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray_9E9E9E"/>
+                android:layout_marginStart="30dp"
+                android:src="@drawable/line"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SNS 계정으로 로그인"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 android:textSize="14sp"
+                android:gravity="center"
                 android:textColor="@color/gray_9E9E9E"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
 
             <ImageView
-                android:id="@+id/btnKakaoLogin"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/kakao"
-                android:layout_margin="8dp"/>
-            <ImageView
-                android:id="@+id/btnGoogleLogin"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/google"
-                android:layout_margin="8dp"/>
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:src="@drawable/line"/>
         </LinearLayout>
+
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
