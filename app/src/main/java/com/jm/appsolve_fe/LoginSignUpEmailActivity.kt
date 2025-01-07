@@ -4,13 +4,17 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.text.SpannableString
 import android.text.TextWatcher
+import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class LoginSignUpEmailActivity : AppCompatActivity() {
@@ -18,6 +22,20 @@ class LoginSignUpEmailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_signup_email)
+
+        val backBtn = findViewById<ImageView>(R.id.backBtn)
+
+        backBtn.setOnClickListener{
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        val closeBtn = findViewById<ImageView>(R.id.closeBtn)
+
+        closeBtn.setOnClickListener {
+            finishAffinity()
+        }
 
         val spinnerEmailDomain = findViewById<Spinner>(R.id.spinnerEmailDomain)
         val etEmail = findViewById<EditText>(R.id.etEmail)
@@ -79,4 +97,5 @@ class LoginSignUpEmailActivity : AppCompatActivity() {
             button.setBackgroundTintList(getColorStateList(R.color.gray_9E9E9E))
         }
     }
+
 }
