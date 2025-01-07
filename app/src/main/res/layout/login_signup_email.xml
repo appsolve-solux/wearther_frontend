@@ -93,9 +93,9 @@
 
                 <EditText
                     android:id="@+id/etEmail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
-                    android:hint="이메일 입력                  "
+                    android:hint="이메일 입력"
                     android:padding="9dp"
                     android:layout_marginTop="0dp"
                     android:background="@drawable/rounded_edittext_background"/>
@@ -117,13 +117,15 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/emailBtnNext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="다음"
                 android:textColor="@color/white"
-                android:background="@drawable/rounded_loginbtn_background"
+                android:backgroundTint="@color/gray_9E9E9E"
                 android:textStyle="bold"
                 android:padding="11dp"
+                android:enabled="false"
                 android:layout_marginTop="20dp"/>
 
 
