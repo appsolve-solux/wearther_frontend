@@ -31,6 +31,5 @@ class LoginSignUpIdActivity : AppCompatActivity() {
             val intent = Intent(this, LoginSignUpPasswordActivity::class.java)
             startActivity(intent)
         }
-
     }
 }

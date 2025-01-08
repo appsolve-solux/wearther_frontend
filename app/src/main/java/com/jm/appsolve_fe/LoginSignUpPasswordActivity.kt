@@ -1,18 +1,21 @@
 package com.jm.appsolve_fe
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.addTextChangedListener
+import androidx.core.content.ContextCompat
 
 class LoginSignUpPasswordActivity : AppCompatActivity() {
-    @SuppressLint("WrongViewCast")
+
+    private var isPasswordValid = false
+    private var isPasswordMatched = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity_sign_up_password)
@@ -32,12 +35,14 @@ class LoginSignUpPasswordActivity : AppCompatActivity() {
         }
 
         val etpassword1 = findViewById<EditText>(R.id.etpassword1)
+        val etpassword2 = findViewById<EditText>(R.id.etpassword2)
         val check1 = findViewById<ImageView>(R.id.check1)
-        val enCheck = findViewById<EditText>(R.id.enCheck)
+        val enCheck = findViewById<TextView>(R.id.enCheck)
         val check2 = findViewById<ImageView>(R.id.check2)
-        val numCheck = findViewById<EditText>(R.id.numCheck)
+        val numCheck = findViewById<TextView>(R.id.numCheck)
         val check3 = findViewById<ImageView>(R.id.check3)
-        val countCheck = findViewById<EditText>(R.id.countCheck)
+        val countCheck = findViewById<TextView>(R.id.countCheck)
+        val passwordbtnNext = findViewById<Button>(R.id.passwordBtnNext)
 
         etpassword1.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -50,7 +55,7 @@ class LoginSignUpPasswordActivity : AppCompatActivity() {
                     enCheck.setTextColor(getColor(R.color.purple))
                 } else {
                     check1.setImageResource(R.drawable.check)
-                    enCheck.setTextColor(R.color.gray_9E9E9E)
+                    enCheck.setTextColor(getColor(R.color.gray_9E9E9E))
                 }
 
                 // 2. 숫자 입력 여부 확인
@@ -70,11 +75,50 @@ class LoginSignUpPasswordActivity : AppCompatActivity() {
                     check3.setImageResource(R.drawable.check)
                     countCheck.setTextColor(getColor(R.color.gray_9E9E9E))
                 }
+
+                // 비밀번호 조건 유효성 확인
+                isPasswordValid = password.any { it.isLetter() } &&
+                        password.any { it.isDigit() } &&
+                        password.length in 8..20
+
+                updateButtonState(passwordbtnNext, isPasswordValid, isPasswordMatched)
             }
 
             override fun afterTextChanged(s: Editable?) {}
         })
 
+        // 비밀번호2 입력 처리
+        etpassword2.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val confirmPassword = s.toString()
+
+                // 비밀번호 일치 여부 확인
+                isPasswordMatched = confirmPassword == etpassword1.text.toString()
+
+                //버튼 상태 업데이트
+                updateButtonState(passwordbtnNext, isPasswordValid, isPasswordMatched)
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        // 다음 버튼 클릭 처리
+        passwordbtnNext.setOnClickListener {
+            val intent = Intent(this,LoginSignUpLocationActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun updateButtonState(button: Button, isValid: Boolean, isMatched: Boolean) {
+        if (isValid && isMatched) {
+            button.isEnabled = true
+            button.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.purple))
+        } else {
+            button.isEnabled = false
+            button.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.gray_9E9E9E))
+        }
     }
 }
