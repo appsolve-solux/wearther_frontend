@@ -128,7 +128,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/emailBtnNext"
+                android:id="@+id/idBtnNext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="다음"
@@ -136,7 +136,7 @@
                 android:background="@drawable/rounded_nextbtn_selector"
                 android:textStyle="bold"
                 android:padding="11dp"
-                android:enabled="false"
+                android:enabled="true"
                 android:layout_marginTop="20dp"/>
 
 
