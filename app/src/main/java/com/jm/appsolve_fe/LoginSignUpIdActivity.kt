@@ -14,7 +14,7 @@ class LoginSignUpIdActivity : AppCompatActivity() {
         val backBtn = findViewById<ImageView>(R.id.backBtn)
 
         backBtn.setOnClickListener{
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, LoginSignUpEmailActivity::class.java)
             startActivity(intent)
             finish()
         }

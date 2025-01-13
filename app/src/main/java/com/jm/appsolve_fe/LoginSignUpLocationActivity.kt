@@ -1,6 +1,5 @@
 package com.jm.appsolve_fe
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +8,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
 class LoginSignUpLocationActivity : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity_sign_up_location)
@@ -19,7 +18,7 @@ class LoginSignUpLocationActivity : AppCompatActivity() {
         val backBtn = findViewById<ImageView>(R.id.backBtn)
 
         backBtn.setOnClickListener{
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, LoginSignUpPasswordActivity::class.java)
             startActivity(intent)
             finish()
         }

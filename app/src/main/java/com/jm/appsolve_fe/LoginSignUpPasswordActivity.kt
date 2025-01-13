@@ -25,7 +25,7 @@ class LoginSignUpPasswordActivity : AppCompatActivity() {
         val backBtn = findViewById<ImageView>(R.id.backBtn)
 
         backBtn.setOnClickListener{
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, LoginSignUpIdActivity::class.java)
             startActivity(intent)
             finish()
         }
