@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -140,9 +141,10 @@ class LoginSignUpPasswordActivity : AppCompatActivity() {
 
         // 다음 버튼 클릭 처리
         passwordbtnNext.setOnClickListener {
+            Log.d("LoginSignUpPasswordActivity", "다음 버튼 클릭됨")
             val intent = Intent(this,LoginSignUpLocationActivity::class.java)
             startActivity(intent)
-            finish()
+//            finish()
         }
     }
 
