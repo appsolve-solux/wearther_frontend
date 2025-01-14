@@ -85,7 +85,21 @@
                 android:drawablePadding="10dp"
                 android:background="@drawable/location_search_background"
                 android:layout_marginTop="20dp"
+                android:clickable="true"
+                android:focusable="false"
                 android:padding="5dp"/>
+
+            <Button
+                android:id="@+id/locationBtnNext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="다음"
+                android:textColor="@color/white"
+                android:background="@drawable/rounded_nextbtn_selector"
+                android:textStyle="bold"
+                android:padding="11dp"
+                android:enabled="false"
+                android:layout_marginTop="20dp"/>
 
 
         </LinearLayout>

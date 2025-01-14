@@ -7,11 +7,22 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 
-class LoginLocationAdapter (private var locationList : List<String>) :
-    RecyclerView.Adapter<LoginLocationAdapter.LocationViewHolder>() {
+class LoginLocationAdapter (
+    private var locationList : List<String>,
+    private val onItemClick: (String) -> Unit
+) : RecyclerView.Adapter<LoginLocationAdapter.LocationViewHolder>() {
 
     inner class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val locationText: TextView = itemView.findViewById(R.id.locationTextView)
+
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onItemClick(locationList[position])
+                }
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
