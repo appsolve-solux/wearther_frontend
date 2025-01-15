@@ -3,7 +3,6 @@ package com.jm.appsolve_fe
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
-import android.util.Log
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
