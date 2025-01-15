@@ -1,10 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginSignUpConstitutionActivity">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/backBtn"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/back"/>
+
+            <TextView
+                android:layout_width="330dp"
+                android:layout_height="match_parent"
+                android:text="회원가입"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+            <ImageView
+                android:id="@+id/closeBtn"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/xbtn"/>
+        </LinearLayout>
+
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingHorizontal="24dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/email_line1"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/constitution_line"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="체질 유형을 선택해주세요."
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:layout_marginTop="70dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="하나만 선택해주세요."
+                android:layout_marginTop="10dp"
+                android:textColor="@color/gray_9E9E9E"/>
+
+            <TextView
+                android:id="@+id/hotConstitution"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="더위를 많이 타요"
+                android:background="@drawable/rounded_edittext_background"
+                android:gravity="center"
+                android:padding="9dp"
+                android:layout_marginTop="30dp"
+                android:textStyle="bold"
+                android:textSize="17sp"/>
+
+            <TextView
+                android:id="@+id/coldConstitution"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="추위를 많이 타요"
+                android:background="@drawable/rounded_edittext_background"
+                android:gravity="center"
+                android:padding="9dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="17sp"/>
+
+            <TextView
+                android:id="@+id/bothConstitution"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="상관 없어요"
+                android:background="@drawable/rounded_edittext_background"
+                android:gravity="center"
+                android:padding="9dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="17sp"/>
+
+            <Button
+                android:id="@+id/constitutionBtnNext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="다음"
+                android:textColor="@color/white"
+                android:background="@drawable/rounded_nextbtn_selector"
+                android:textStyle="bold"
+                android:padding="11dp"
+                android:enabled="false"
+                android:layout_marginTop="20dp"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
