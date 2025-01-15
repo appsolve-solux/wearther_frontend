@@ -2,6 +2,7 @@ package com.jm.appsolve_fe
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -40,6 +41,7 @@ class LoginSignUpConstitutionActivity : AppCompatActivity() {
         setConstitutionClickListener(bothConstitution, constitutionBtnNext)
 
         constitutionBtnNext.setOnClickListener {
+            Log.d("LoginPickTopActivity", "다음 버튼 클릭됨")
             val intent = Intent(this, LoginPickTopActivity::class.java)
             startActivity(intent)
         }
