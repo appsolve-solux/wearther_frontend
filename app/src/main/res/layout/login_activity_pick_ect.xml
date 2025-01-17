@@ -94,7 +94,9 @@
                 android:layout_marginTop="16dp"
                 app:alignItems="center"
                 app:justifyContent="flex_start"
-                app:flexWrap="wrap"/>
+                app:flexWrap="wrap"
+                android:clipChildren="false"
+                android:clipToPadding="false"/>
 
 
         </LinearLayout>
