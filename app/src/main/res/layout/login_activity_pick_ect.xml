@@ -74,16 +74,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="보유한 옷을 선택해 주세요."
+                    android:text="선호하는 스타일을 선택해 주세요."
                     android:textSize="23sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="(🧣기타)"
-                    android:textSize="23sp"
-                    android:textColor="@color/purple"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -91,7 +83,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="중복 선택 가능합니다."
+                android:text="중복 선택 가능합니다. 최대 3개까지 선택해 주세요."
                 android:layout_marginTop="10dp"
                 android:textColor="@color/gray_9E9E9E" />
 
@@ -131,7 +123,7 @@
             android:id="@+id/pickEctBtnNext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="다음"
+            android:text="웨어더 시작하기"
             android:textColor="@color/white"
             android:background="@drawable/rounded_nextbtn_selector"
             android:textStyle="bold"

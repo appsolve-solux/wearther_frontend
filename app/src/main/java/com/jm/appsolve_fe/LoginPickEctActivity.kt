@@ -14,9 +14,7 @@ import com.google.android.flexbox.FlexboxLayout
 class LoginPickEctActivity : AppCompatActivity() {
 
     private val pickEctList = listOf(
-        "쪼리", "목도리, 장갑", "어그 & 귀마개", "우산",
-        "장화", "양산", "비니 & 벙거지", "볼캡",
-        "선글라스"
+        "힙", "캐주얼", "페미닌", "모던", "드뮤어", "고프코어", "Y2K", "올드머니"
     )
 
     private val selectedpickEct = mutableSetOf<String>() // 선택된 항목 저장
@@ -49,12 +47,12 @@ class LoginPickEctActivity : AppCompatActivity() {
                 setTextColor(ContextCompat.getColor(this@LoginPickEctActivity, R.color.purple))
                 paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
             }
-            val intent = Intent(this, LoginPreferActivity::class.java)
+            val intent = Intent(this, NextActivity::class.java)
             startActivity(intent)
         }
 
         pickEctBtnNext.setOnClickListener {
-            val intent = Intent(this, LoginPreferActivity::class.java)
+            val intent = Intent(this, NextActivity::class.java)
             startActivity(intent)
         }
 
@@ -92,21 +90,36 @@ class LoginPickEctActivity : AppCompatActivity() {
             selectedpickEct.remove(pickBottom)
             textView.setBackgroundResource(R.drawable.picktop_rounded_edittext_background)
             textView.setTextColor(ContextCompat.getColor(this, R.color.black))
-        } else {
+            updateStyleNumbers()
+        } else if (selectedpickEct.size < 3){
             selectedpickEct.add(pickBottom)
             textView.setBackgroundResource(R.drawable.picktop_rounded_edittext_selected_background)
             textView.setTextColor(ContextCompat.getColor(this, R.color.white))
+            updateStyleNumbers()
         }
         updatepickTopBtnNextState()
     }
 
+    private fun updateStyleNumbers() {
+        val pickEctGrid = findViewById<FlexboxLayout>(R.id.pickEctGrid)
+        for (i in 0 until pickEctGrid.childCount) {
+            val child = pickEctGrid.getChildAt(i) as TextView
+            val style = child.text.toString().replace(Regex("^\\d\\s"), "")
+            if (selectedpickEct.contains(style)) {
+                val index = selectedpickEct.indexOf(style) + 1
+                child.text = "$index $style"
+            } else {
+                child.text = style
+            }
+        }
+    }
+
     private fun updatepickTopBtnNextState() {
-        if (selectedpickEct.isNotEmpty()) {
-            pickEctBtnNext.isEnabled = true
-            pickEctBtnNext.backgroundTintList = ContextCompat.getColorStateList(this, R.color.purple)
+        pickEctBtnNext.isEnabled = selectedpickEct.size == 3
+        pickEctBtnNext.backgroundTintList = if (selectedpickEct.size == 3) {
+            ContextCompat.getColorStateList(this, R.color.purple)
         } else {
-            pickEctBtnNext.isEnabled = false
-            pickEctBtnNext.backgroundTintList = ContextCompat.getColorStateList(this, R.color.gray_9E9E9E)
+            ContextCompat.getColorStateList(this, R.color.gray_9E9E9E)
         }
     }
 }
