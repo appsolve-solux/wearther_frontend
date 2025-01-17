@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Appsolve_FE"
         tools:targetApi="31">
         <activity
+            android:name=".LoginPreferActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginPickEctActivity"
             android:exported="false" />
         <activity
