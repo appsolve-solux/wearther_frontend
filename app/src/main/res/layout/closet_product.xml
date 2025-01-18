@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <TextView
+            android:id="@+id/text_recommended_products"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="당신의 옷장에 없는 옷 중 구입 추천 아이템이에요!"
+            android:textSize="15dp"
+            android:textColor="@color/purple"
+            android:gravity="center"
+            android:background="@drawable/closet_textbox_2" />
+
+        <ScrollView
+            android:id="@+id/scroll_products"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9"
+            app:layout_constraintTop_toBottomOf="@id/text_recommended_products"
+            app:layout_constraintBottom_toTopOf="@id/btn_closet_edit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/product_clothes01"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_margin="3dp"
+                        android:src="@drawable/closet_clothes_etc_01"
+                        android:scaleType="centerCrop" />
+                    <ImageView
+                        android:id="@+id/product_clothes02"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_margin="3dp"
+                        android:src="@drawable/closet_clothes_etc_01"
+                        android:scaleType="centerCrop" />
+                    <ImageView
+                        android:id="@+id/product_clothes03"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_margin="3dp"
+                        android:src="@drawable/closet_clothes_etc_01"
+                        android:scaleType="centerCrop" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/product_clothes04"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_margin="3dp"
+                        android:src="@drawable/closet_clothes_etc_01"
+                        android:scaleType="centerCrop" />
+                    <ImageView
+                        android:id="@+id/product_clothes05"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_margin="3dp"
+                        android:src="@drawable/closet_clothes_etc_01"
+                        android:scaleType="centerCrop" />
+                    <ImageView
+                        android:id="@+id/product_clothes06"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_margin="3dp"
+                        android:src="@drawable/closet_clothes_etc_01"
+                        android:scaleType="centerCrop" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/product_clothes07"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_margin="3dp"
+                        android:src="@drawable/closet_clothes_etc_01"
+                        android:scaleType="centerCrop" />
+                    <ImageView
+                        android:id="@+id/product_clothes08"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_margin="3dp"
+                        android:src="@drawable/closet_clothes_etc_01"
+                        android:scaleType="centerCrop" />
+                    <ImageView
+                        android:id="@+id/product_clothes09"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_margin="3dp"
+                        android:src="@drawable/closet_clothes_etc_01"
+                        android:scaleType="centerCrop" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

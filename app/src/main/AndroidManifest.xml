@@ -13,7 +13,10 @@
         android:theme="@style/Theme.Appsolve_FE"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".closet.closet_product_detail"
+            android:exported="false" />
+        <activity
+            android:name=".closet.ClosetMain"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

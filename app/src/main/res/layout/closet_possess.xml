@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <!-- 안내 메시지 -->
+        <TextView
+            android:id="@+id/text_recommended_products"
+            android:layout_width="408dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/closet_textbox_1"
+            android:gravity="center"
+            android:text="당신의 옷장을 확인하세요!"
+            android:textColor="@color/purple"
+            android:textSize="15dp" />
+
+        <!-- 스크롤 가능한 이미지 목록 -->
+        <ScrollView
+            android:id="@+id/scroll_view_clothes"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9"
+            app:layout_constraintTop_toBottomOf="@id/text_recommended_products"
+            app:layout_constraintBottom_toTopOf="@id/btn_closet_edit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/possess_clothes01"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_margin="3dp"
+                        android:src="@drawable/closet_clothes_etc_01"
+                        android:scaleType="centerCrop" />
+                    <ImageView
+                        android:id="@+id/possess_clothes02"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_margin="3dp"
+                        android:src="@drawable/closet_clothes_etc_01"
+                        android:scaleType="centerCrop" />
+                    <ImageView
+                        android:id="@+id/possess_clothes03"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_margin="3dp"
+                        android:src="@drawable/closet_clothes_etc_01"
+                        android:scaleType="centerCrop" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/possess_clothes04"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_margin="3dp"
+                        android:src="@drawable/closet_clothes_etc_01"
+                        android:scaleType="centerCrop" />
+                    <ImageView
+                        android:id="@+id/possess_clothes05"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_margin="3dp"
+                        android:src="@drawable/closet_clothes_etc_01"
+                        android:scaleType="centerCrop" />
+                    <ImageView
+                        android:id="@+id/possess_clothes06"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_margin="3dp"
+                        android:src="@drawable/closet_clothes_etc_01"
+                        android:scaleType="centerCrop" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <!-- 하단 편집 버튼 -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_closet_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/closet_btn_edit"
+        android:background="@color/purple"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+    />
+</androidx.constraintlayout.widget.ConstraintLayout>
