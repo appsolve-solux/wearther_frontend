@@ -11,22 +11,35 @@ import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.SearchView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import retrofit2.Response
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jm.appsolve_fe.databinding.FragmentLocationBinding
+import com.jm.appsolve_fe.databinding.SearchLocationDialogBinding
+import retrofit2.Call
 import java.util.Locale
 
 class Location : Fragment() {
 
+
     private var _binding: FragmentLocationBinding? = null
     private val binding get() = _binding!!
 
-    private var list = ArrayList<String>()
-
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var searchView: SearchView
+    private var mList = ArrayList<LocationData>()
+    private lateinit var adapter: LocationAdapter
 
     @SuppressLint("MissingPermission")
     override fun onCreateView(
@@ -34,9 +47,11 @@ class Location : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_location, container, false)
+        //val view = inflater.inflate(R.layout.fragment_location, container, false)
 
         _binding = FragmentLocationBinding.inflate(inflater, container, false)
+
+        val view = binding.root
 
         val toolbarTitle = view.findViewById<TextView>(R.id.tv_toolbar_title)
         toolbarTitle.text = "위치"
@@ -64,42 +79,87 @@ class Location : Fragment() {
         return view
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val selectItemButton: ImageButton = view.findViewById(R.id.tvSelectItem)
         selectItemButton.setOnClickListener {
-            Log.d("LocationFragment", "TV Select Item clicked!")
             showBottomSheet()
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
         }
     }
 
     private fun showBottomSheet() {
-        val dialogView = layoutInflater.inflate(R.layout.search_location_dialog, null)
+
+        val dialogBinding = SearchLocationDialogBinding.inflate(layoutInflater)
+
+        //val dialogView = layoutInflater.inflate(R.layout.search_location_dialog, null)
         val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
-        dialog.setContentView(dialogView)
+        dialog.setContentView(dialogBinding.root)
+
+        recyclerView = dialogBinding.recyclerView
+        searchView = dialogBinding.searchView
+
+
+        addLocToList()
+
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        adapter = LocationAdapter(mList)
+        recyclerView.adapter = adapter
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterList(newText)
+                return true
+            }
+
+        })
 
         val window = dialog.window
         window?.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
-            (resources.displayMetrics.heightPixels * 0.8).toInt()
+            WindowManager.LayoutParams.WRAP_CONTENT
         )
         window?.setGravity(Gravity.TOP)
         window?.setDimAmount(0f)
 
-        /*val recyclerView: RecyclerView = dialogView.findViewById(R.id.rvItem)
-        locationItemAdaptor = LocationItemAdaptor(list)
-        recyclerView.adapter = locationItemAdaptor*/
         dialog.show()
     }
 
+    private fun filterList(query: String?) {
+
+        if (query != null) {
+            val filteredList = ArrayList<LocationData>()
+            for (i in mList) {
+                if(i.address.contains(query.trim())){
+                    filteredList.add(i)
+                }
+            }
+            if (filteredList.isEmpty()){
+                Toast.makeText(context, "No Data found", Toast.LENGTH_LONG).show()
+            } else {
+                adapter.setFilteredList(filteredList)
+            }
+        }
+    }
+
+    private fun addLocToList() {
+        mList.add(LocationData("서울시 용산구 청파동"))
+        mList.add(LocationData("서울시 용산구 뭐뭐동"))
+        mList.add(LocationData("서울시 송파구 일이동"))
+        mList.add(LocationData("서울시 마포구 일이동"))
+        mList.add(LocationData("서울시 마포구 성암동"))
+        mList.add(LocationData("서울시 용산구 청파동1"))
+        mList.add(LocationData("서울시 용산구 뭐뭐동2"))
+        mList.add(LocationData("서울시 송파구 일이동3"))
+        mList.add(LocationData("서울시 마포구 일이동4"))
+        mList.add(LocationData("서울시 마포구 성암동5"))
+
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

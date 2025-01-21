@@ -7,19 +7,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bottom_nav_style">
 
-    <!--<androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvSelect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="select itemdd"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,19 +24,20 @@
         android:background="@drawable/location_searchview_background"
         android:iconifiedByDefault="false"
         android:queryHint="시/구/동을 입력하세요."
+        android:searchIcon="@drawable/location_search_icon"
+        android:closeIcon="@drawable/location_delete_icon"
         android:queryBackground="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <!--<androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvItem"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        tools:listitem="@layout/location_item"
+        android:layout_height="500dp"
+        android:layout_marginHorizontal="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>-->
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
