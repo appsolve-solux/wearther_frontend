@@ -15,31 +15,28 @@ import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.appcompat.widget.SearchView.OnQueryTextListener
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import retrofit2.Response
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jm.appsolve_fe.databinding.FragmentLocationBinding
 import com.jm.appsolve_fe.databinding.SearchLocationDialogBinding
-import retrofit2.Call
-import java.util.Locale
 
 class Location : Fragment() {
-
 
     private var _binding: FragmentLocationBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var recyclerView: RecyclerView
+    // 즐겨찾기
+    private lateinit var bookmarkrecyclerView: RecyclerView
+    private var bList = ArrayList<BookmarkData>()
+    private lateinit var bookmarkadapter: BookmarkAdapter
+
+    // dialog 내부
+    private lateinit var loclistrecyclerView: RecyclerView
     private lateinit var searchView: SearchView
     private var mList = ArrayList<LocationData>()
-    private lateinit var adapter: LocationAdapter
+    private lateinit var locationlistadapter: LocationAdapter
 
     private lateinit var justtext: TextView
 
@@ -49,26 +46,29 @@ class Location : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        //val view = inflater.inflate(R.layout.fragment_location, container, false)
-
         _binding = FragmentLocationBinding.inflate(inflater, container, false)
-
         val view = binding.root
 
-        justtext = view.findViewById(R.id.just_text) // just_text를 초기화
-
+        //툴바 타이틀 변경
         val toolbarTitle = view.findViewById<TextView>(R.id.tv_toolbar_title)
         toolbarTitle.text = "위치"
 
-        // > 버튼 클릭 시 Home으로 이동
+        // 툴바 >버튼 클릭 이벤트
         val backBtn: AppCompatImageView = view.findViewById(R.id.backbtn)
         backBtn.setOnClickListener {
-            // Home로 이동
             (activity as MainActivity).replaceFragment(Home())
         }
 
         val currentLocationLayout: LinearLayout = view.findViewById(R.id.currentlocationlayout)
 
+        bookmarkrecyclerView = view.findViewById(R.id.bookmark_location_recyclerView)
+        bookmarkrecyclerView.setHasFixedSize(true)
+        bookmarkrecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        bookmarkadapter = BookmarkAdapter(bList)
+        bookmarkrecyclerView.adapter = bookmarkadapter
+
+        // 위치 조정 화살표 visibility
         val upArrow: ImageView = view.findViewById(R.id.locationup)
         val downArrow: ImageView = view.findViewById(R.id.locationdown)
 
@@ -85,7 +85,8 @@ class Location : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        
+        // dialog.show
         val selectItemButton: ImageButton = view.findViewById(R.id.opendialog)
         selectItemButton.setOnClickListener {
             showBottomSheet()
@@ -96,29 +97,39 @@ class Location : Fragment() {
 
         val dialogBinding = SearchLocationDialogBinding.inflate(layoutInflater)
 
-        //val dialogView = layoutInflater.inflate(R.layout.search_location_dialog, null)
         val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
         dialog.setContentView(dialogBinding.root)
 
-        recyclerView = dialogBinding.recyclerView
+        loclistrecyclerView = dialogBinding.recyclerView
         searchView = dialogBinding.searchView
-
-
+        
+        // 위치 목록 추가
         addLocToList()
 
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        adapter = LocationAdapter(mList)
-        recyclerView.adapter = adapter
+        loclistrecyclerView.setHasFixedSize(true)
+        loclistrecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        // 리사이클러뷰 추가
+        locationlistadapter = LocationAdapter(mList)
+        loclistrecyclerView.adapter = locationlistadapter
 
-        adapter.itemClickListener = object : LocationAdapter.OnItemClickListener {
+
+        locationlistadapter.itemClickListener = object : LocationAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
                 val item = mList[position]
                 Toast.makeText(context, "${item.address} 클릭", Toast.LENGTH_SHORT).show()
+
+                // 텍스트 파싱
+                val addressParts = item.address.split(" ")
+
+                val newBookmark = BookmarkData(addressParts[0], addressParts.getOrElse(1) { "" }, addressParts.getOrElse(2) { "" })
+                bList.add(newBookmark)
+                bookmarkadapter.notifyDataSetChanged()
+
+                dialog.dismiss()
             }
         }
 
-
+        // searchview filter
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -143,7 +154,6 @@ class Location : Fragment() {
     }
 
     private fun filterList(query: String?) {
-
         if (query != null) {
             val filteredList = ArrayList<LocationData>()
             for (i in mList) {
@@ -154,23 +164,23 @@ class Location : Fragment() {
             if (filteredList.isEmpty()){
                 Toast.makeText(context, "No Data found", Toast.LENGTH_LONG).show()
             } else {
-                adapter.setFilteredList(filteredList)
+                locationlistadapter.setFilteredList(filteredList)
             }
         }
     }
 
-    private fun addLocToList() {
 
-        mList.add(LocationData("서울시 용산구 청파동"))
-        mList.add(LocationData("서울시 용산구 뭐뭐동"))
-        mList.add(LocationData("서울시 송파구 일이동"))
-        mList.add(LocationData("서울시 마포구 일이동"))
-        mList.add(LocationData("서울시 마포구 성암동"))
-        mList.add(LocationData("서울시 용산구 청파동1"))
-        mList.add(LocationData("서울시 용산구 뭐뭐동2"))
-        mList.add(LocationData("서울시 송파구 일이동3"))
-        mList.add(LocationData("서울시 마포구 일이동4"))
-        mList.add(LocationData("서울시 마포구 성암동5"))
+    private fun addLocToList() {
+        mList.add(LocationData("서울특별시 용산구 청파동"))
+        mList.add(LocationData("서울특별시 용산구 뭐뭐동"))
+        mList.add(LocationData("서울특별시 송파구 일이동"))
+        mList.add(LocationData("서울특별시 마포구 일이동"))
+        mList.add(LocationData("서울특별시 마포구 성암동"))
+        mList.add(LocationData("서울특별시 용산구 청파동1"))
+        mList.add(LocationData("서울특별시 용산구 뭐뭐동2"))
+        mList.add(LocationData("서울특별시 송파구 일이동3"))
+        mList.add(LocationData("서울특별시 마포구 일이동4"))
+        mList.add(LocationData("서울특별시 마포구 성암동5"))
 
     }
 
