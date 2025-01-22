@@ -10,12 +10,27 @@ import androidx.recyclerview.widget.RecyclerView
 class LocationAdapter(var mList: List<LocationData>) :
     RecyclerView.Adapter<LocationAdapter.LocationViewHolder>() {
 
+        interface OnItemClickListener {
+            fun onItemClick(position: Int)
+        }
+
+        var itemClickListener: OnItemClickListener? = null
+
         inner class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val locationTv : TextView = itemView.findViewById(R.id.tv_addresslist)
+
+            init {
+                itemView.setOnClickListener {
+                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        itemClickListener?.onItemClick(position)
+                    }
+                }
+            }
         }
 
         fun setFilteredList(mList: List<LocationData>) {
-            this.mList = mList
+            this.mList = mList.toList()
             notifyDataSetChanged()
         }
 

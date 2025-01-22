@@ -68,6 +68,11 @@
                 android:layout_marginLeft="5dp"
                 android:src="@drawable/location_bookmark" />
         </LinearLayout>
+        <TextView
+            android:id="@+id/just_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="hi"/>
 
         <include
             android:id="@+id/view"
@@ -101,7 +106,7 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/tvSelectItem"
+        android:id="@+id/opendialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

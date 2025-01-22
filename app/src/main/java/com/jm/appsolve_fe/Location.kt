@@ -41,6 +41,8 @@ class Location : Fragment() {
     private var mList = ArrayList<LocationData>()
     private lateinit var adapter: LocationAdapter
 
+    private lateinit var justtext: TextView
+
     @SuppressLint("MissingPermission")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +54,8 @@ class Location : Fragment() {
         _binding = FragmentLocationBinding.inflate(inflater, container, false)
 
         val view = binding.root
+
+        justtext = view.findViewById(R.id.just_text) // just_text를 초기화
 
         val toolbarTitle = view.findViewById<TextView>(R.id.tv_toolbar_title)
         toolbarTitle.text = "위치"
@@ -82,7 +86,7 @@ class Location : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val selectItemButton: ImageButton = view.findViewById(R.id.tvSelectItem)
+        val selectItemButton: ImageButton = view.findViewById(R.id.opendialog)
         selectItemButton.setOnClickListener {
             showBottomSheet()
         }
@@ -103,9 +107,17 @@ class Location : Fragment() {
         addLocToList()
 
         recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         adapter = LocationAdapter(mList)
         recyclerView.adapter = adapter
+
+        adapter.itemClickListener = object : LocationAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val item = mList[position]
+                Toast.makeText(context, "${item.address} 클릭", Toast.LENGTH_SHORT).show()
+            }
+        }
+
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -148,6 +160,7 @@ class Location : Fragment() {
     }
 
     private fun addLocToList() {
+
         mList.add(LocationData("서울시 용산구 청파동"))
         mList.add(LocationData("서울시 용산구 뭐뭐동"))
         mList.add(LocationData("서울시 송파구 일이동"))
