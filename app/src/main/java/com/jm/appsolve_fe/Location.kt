@@ -3,7 +3,6 @@ package com.jm.appsolve_fe
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -38,8 +37,6 @@ class Location : Fragment() {
     private lateinit var searchView: SearchView
     private var mList = ArrayList<LocationData>()
     private lateinit var locationlistadapter: LocationAdapter
-
-    private lateinit var justtext: TextView
 
     @SuppressLint("MissingPermission")
     override fun onCreateView(
@@ -119,7 +116,7 @@ class Location : Fragment() {
         locationlistadapter.itemClickListener = object : LocationAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
                 val item = mList[position]
-                Toast.makeText(context, "${item.address} 클릭", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, "${item.address} 클릭", Toast.LENGTH_SHORT).show()
 
                 // 텍스트 파싱
                 val addressParts = item.address.split(" ")
@@ -193,20 +190,40 @@ class Location : Fragment() {
         val dialog = Dialog(requireContext(), R.style.BottomSheetDialogTheme)
         dialog.setContentView(dialogView)
 
+        // Custom Toast Message
+        val toast = layoutInflater.inflate(R.layout.location_toast_layout,null)
+
+
         // 선택된 아이템의 이름 가져오기
-        val selectedBookmarkName = "${bList[position].secondaddress} ${bList[position].thirdaddress}" // BookmarkData의 필드 중 name 사용
+        val selectedBookmarkName = "${bList[position].secondaddress} ${bList[position].thirdaddress}"
 
         // Dialog의 alert_text에 선택된 이름 설정
         val alertTextView = dialogView.findViewById<TextView>(R.id.alert_text)
-        alertTextView.text = selectedBookmarkName // alert_text는 커스텀 Dialog 레이아웃의 ID입니다.
+        alertTextView.text = selectedBookmarkName
 
         // Dialog "확인" 버튼
         val confirmButton = dialogView.findViewById<TextView>(R.id.delete)
         confirmButton.setOnClickListener {
 
+            // Custom toast message
+            val toast = layoutInflater.inflate(R.layout.location_toast_layout, null)
+            val toastMessage = "${bList[position].secondaddress} ${bList[position].thirdaddress}이(가) 즐겨찾기에서 삭제되었습니다."
+
+            // 텍스트 설정
+            val tvToast = toast.findViewById<TextView>(R.id.tvToast)
+            tvToast.text = toastMessage
+
+            Toast(requireContext()).apply {
+                duration = Toast.LENGTH_SHORT
+                setGravity(Gravity.BOTTOM,0,250)
+                view = toast
+            }.show()
+
             bList.removeAt(position) // 선택된 아이템 삭제
             bookmarkadapter.notifyDataSetChanged() // RecyclerView 갱신
+
             dialog.dismiss()
+
         }
 
         // Dialog "취소" 버튼
@@ -220,7 +237,6 @@ class Location : Fragment() {
 
         dialog.show()
     }
-
 
 
     override fun onDestroyView() {
