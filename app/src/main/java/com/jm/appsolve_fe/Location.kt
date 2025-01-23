@@ -1,6 +1,7 @@
 package com.jm.appsolve_fe
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -65,7 +66,9 @@ class Location : Fragment() {
         bookmarkrecyclerView.setHasFixedSize(true)
         bookmarkrecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-        bookmarkadapter = BookmarkAdapter(bList)
+        bookmarkadapter = BookmarkAdapter(bList) { position ->
+            showDeleteDialog(position)
+        }
         bookmarkrecyclerView.adapter = bookmarkadapter
 
         // 위치 조정 화살표 visibility
@@ -85,7 +88,7 @@ class Location : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         // dialog.show
         val selectItemButton: ImageButton = view.findViewById(R.id.opendialog)
         selectItemButton.setOnClickListener {
@@ -102,7 +105,7 @@ class Location : Fragment() {
 
         loclistrecyclerView = dialogBinding.recyclerView
         searchView = dialogBinding.searchView
-        
+
         // 위치 목록 추가
         addLocToList()
 
@@ -183,6 +186,42 @@ class Location : Fragment() {
         mList.add(LocationData("서울특별시 마포구 성암동5"))
 
     }
+
+    private fun showDeleteDialog(position: Int) {
+        // Custom Dialog View
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.bookmark_delete_custom_dialog, null)
+        val dialog = Dialog(requireContext(), R.style.BottomSheetDialogTheme)
+        dialog.setContentView(dialogView)
+
+        // 선택된 아이템의 이름 가져오기
+        val selectedBookmarkName = "${bList[position].secondaddress} ${bList[position].thirdaddress}" // BookmarkData의 필드 중 name 사용
+
+        // Dialog의 alert_text에 선택된 이름 설정
+        val alertTextView = dialogView.findViewById<TextView>(R.id.alert_text)
+        alertTextView.text = selectedBookmarkName // alert_text는 커스텀 Dialog 레이아웃의 ID입니다.
+
+        // Dialog "확인" 버튼
+        val confirmButton = dialogView.findViewById<TextView>(R.id.delete)
+        confirmButton.setOnClickListener {
+
+            bList.removeAt(position) // 선택된 아이템 삭제
+            bookmarkadapter.notifyDataSetChanged() // RecyclerView 갱신
+            dialog.dismiss()
+        }
+
+        // Dialog "취소" 버튼
+        val cancelButton = dialogView.findViewById<TextView>(R.id.cancel_delete)
+        cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        val window = dialog.window
+        window?.setWindowAnimations(0) // 애니메이션 제거
+
+        dialog.show()
+    }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
