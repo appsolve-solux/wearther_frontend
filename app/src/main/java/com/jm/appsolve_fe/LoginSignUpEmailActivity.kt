@@ -12,7 +12,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.jm.appsolve_fe.network.RetrofitClient
+import com.jm.appsolve_fe.network.SignUpRequest
+import com.jm.appsolve_fe.network.SignUpResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginSignUpEmailActivity : AppCompatActivity() {
     @SuppressLint("ResourceType")
@@ -78,6 +85,12 @@ class LoginSignUpEmailActivity : AppCompatActivity() {
         // 버튼 클릭 이벤트 처리
         emailBtnNext.setOnClickListener {
             if (emailBtnNext.isEnabled) {
+                val email = etEmail.text.toString()
+                val domain = spinnerEmailDomain.selectedItem.toString()
+                val fullEmail = "$email@$domain"
+
+                SignUpDataStore.saveData(this, "email", fullEmail)
+
                 val intent = Intent(this, LoginSignUpIdActivity::class.java)
                 startActivity(intent)
             }
