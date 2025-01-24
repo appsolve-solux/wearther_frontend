@@ -54,11 +54,6 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/email_line1"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
                 android:src="@drawable/id_line"/>
         </FrameLayout>
 
