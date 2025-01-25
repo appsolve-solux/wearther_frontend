@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -114,6 +115,7 @@ class LoginSignUpIdActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
+                Log.e("API_FAILURE", "Network error: ${t.message}", t)
                 tvDupResult.text = "네트워크 오류가 발생했습니다."
                 tvDupResult.setTextColor(Color.RED)
                 tvDupResult.visibility = View.VISIBLE
