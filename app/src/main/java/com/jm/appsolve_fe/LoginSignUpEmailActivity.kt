@@ -12,14 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.jm.appsolve_fe.network.RetrofitClient
-import com.jm.appsolve_fe.network.SignUpRequest
-import com.jm.appsolve_fe.network.SignUpResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class LoginSignUpEmailActivity : AppCompatActivity() {
     @SuppressLint("ResourceType")
