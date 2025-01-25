@@ -6,5 +6,8 @@ data class SignUpResponse(
     val result: Result?,
     val error: String?
 ) {
-    data class Result(val memberId: Int)
+    data class Result(
+        val memberId: Int? = null,
+        val isDuplicated: Boolean? = null
+    )
 }
