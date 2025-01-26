@@ -15,22 +15,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class LoginLocationBottomSheetActivity : BottomSheetDialogFragment() {
 
     private lateinit var locationAdapter: LoginLocationAdapter
-    private val fullLocationList = listOf(
-        "대한민국 서울특별시 용산구 이촌동",
-        "대한민국 서울특별시 용산구 원효로4가",
-        "대한민국 서울특별시 용산구 한강로3가",
-        "대한민국 서울특별시 용산구 한강로2가",
-        "대한민국 서울특별시 용산구 한강로1가",
-        "대한민국 서울특별시 용산구 신계동",
-        "대한민국 서울특별시 용산구 문배동",
-        "대한민국 서울특별시 용산구 원효로1가",
-        "대한민국 서울특별시 용산구 청파동3가",
-        "대한민국 서울특별시 용산구 청파동2가",
-        "대한민국 서울특별시 용산구 청파동1가",
-        "대한민국 서울특별시 용산구 서계동",
-        "대한민국 서울특별시 용산구 동자동"
-    )
-
     private var onLocationSelected: ((String) -> Unit)? = null
 
     fun setOnLocationSelectedListener(listener: (String) -> Unit) {
@@ -49,7 +33,7 @@ class LoginLocationBottomSheetActivity : BottomSheetDialogFragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.locationRecyclerView)
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        locationAdapter = LoginLocationAdapter(fullLocationList) { selectedLocation ->
+        locationAdapter = LoginLocationAdapter(LocationData.locationList) { selectedLocation ->
             onLocationSelected?.invoke(selectedLocation)
             dismiss()
         }
@@ -60,7 +44,7 @@ class LoginLocationBottomSheetActivity : BottomSheetDialogFragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val query = s.toString()
-                val filteredList = fullLocationList.filter {
+                val filteredList = LocationData.locationList.filter {
                     it.contains(query, ignoreCase = true)
                 }
                 locationAdapter.updateList(filteredList)

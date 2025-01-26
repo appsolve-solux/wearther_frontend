@@ -46,6 +46,12 @@ class LoginSignUpLocationActivity : AppCompatActivity() {
             val bottomSheet = LoginLocationBottomSheetActivity()
             bottomSheet.setOnLocationSelectedListener { selectedLocation ->
                 locationSearchEditText.setText(selectedLocation)
+
+                val index = LocationData.locationList.indexOf(selectedLocation)
+
+                SignUpDataStore.saveData(this, "locationInfo", selectedLocation)
+                SignUpDataStore.saveData(this, "locationIndex", index.toString())
+
                 updateButtonState(locationBtnNext, selectedLocation.isNotEmpty())
             }
             bottomSheet.show(supportFragmentManager, "LoginLocationBottomSheetActivity")
