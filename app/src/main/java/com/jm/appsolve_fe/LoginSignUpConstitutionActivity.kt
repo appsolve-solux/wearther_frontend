@@ -36,9 +36,9 @@ class LoginSignUpConstitutionActivity : AppCompatActivity() {
         val bothConstitution = findViewById<TextView>(R.id.bothConstitution)
         val constitutionBtnNext = findViewById<Button>(R.id.constitutionBtnNext)
 
-        setConstitutionClickListener(hotConstitution, constitutionBtnNext)
-        setConstitutionClickListener(coldConstitution, constitutionBtnNext)
-        setConstitutionClickListener(bothConstitution, constitutionBtnNext)
+        setConstitutionClickListener(hotConstitution, constitutionBtnNext, 0)
+        setConstitutionClickListener(coldConstitution, constitutionBtnNext, 1)
+        setConstitutionClickListener(bothConstitution, constitutionBtnNext, 2)
 
         constitutionBtnNext.setOnClickListener {
             Log.d("LoginPickTopActivity", "다음 버튼 클릭됨")
@@ -47,7 +47,7 @@ class LoginSignUpConstitutionActivity : AppCompatActivity() {
         }
     }
 
-    private fun setConstitutionClickListener(constitution: TextView, button: Button) {
+    private fun setConstitutionClickListener(constitution: TextView, button: Button, value: Int) {
         constitution.setOnClickListener {
             if (selectedConstitution == constitution) {
                 resetSelection(constitution)
@@ -57,6 +57,7 @@ class LoginSignUpConstitutionActivity : AppCompatActivity() {
                 selectedConstitution?.let { resetSelection(it) }
                 selectedConstitution(constitution)
                 selectedConstitution = constitution
+                SignUpDataStore.saveData(this, "constitution", value.toString())
                 updateButtonState(button, true)
             }
         }
