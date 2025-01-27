@@ -19,7 +19,7 @@ class LoginPickEctActivity : AppCompatActivity() {
         "선글라스"
     )
 
-    private val selectedpickEct = mutableSetOf<String>() // 선택된 항목 저장
+    private val selectedPickEctIndexes  = mutableSetOf<Int>() // 선택된 항목 저장
     private lateinit var pickEctBtnNext: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,24 +49,26 @@ class LoginPickEctActivity : AppCompatActivity() {
                 setTextColor(ContextCompat.getColor(this@LoginPickEctActivity, R.color.purple))
                 paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
             }
+            SignUpDataStore.saveData(this@LoginPickEctActivity, "others", "")
             val intent = Intent(this, LoginPreferActivity::class.java)
             startActivity(intent)
         }
 
         pickEctBtnNext.setOnClickListener {
+            SignUpDataStore.saveData(this, "others", selectedPickEctIndexes.joinToString(","))
             val intent = Intent(this, LoginPreferActivity::class.java)
             startActivity(intent)
         }
 
-        for (pickTop in pickEctList) {
-            val textView = createPickTopItem(pickTop)
+        for ((index, pickEct) in pickEctList.withIndex()) {
+            val textView = createPickTopItem(pickEct, index)
             pickEctGrid.addView(textView)
         }
     }
 
-    private fun createPickTopItem(pickTop: String): TextView {
+    private fun createPickTopItem(pickEct: String, index: Int): TextView {
         val textView = TextView(this).apply {
-            text = pickTop
+            text = pickEct
             textSize = 18f
             setPadding(80, 20, 80, 20)
             setBackgroundResource(R.drawable.picktop_rounded_edittext_background)
@@ -82,18 +84,18 @@ class LoginPickEctActivity : AppCompatActivity() {
         }
 
         textView.setOnClickListener {
-            pickTopToggleSelection(textView, pickTop)
+            pickTopToggleSelection(textView, index)
         }
         return textView
     }
 
-    private fun pickTopToggleSelection(textView: TextView, pickBottom: String) {
-        if (selectedpickEct.contains(pickBottom)) {
-            selectedpickEct.remove(pickBottom)
+    private fun pickTopToggleSelection(textView: TextView, index: Int) {
+        if (selectedPickEctIndexes.contains(index)) {
+            selectedPickEctIndexes.remove(index)
             textView.setBackgroundResource(R.drawable.picktop_rounded_edittext_background)
             textView.setTextColor(ContextCompat.getColor(this, R.color.black))
         } else {
-            selectedpickEct.add(pickBottom)
+            selectedPickEctIndexes.add(index)
             textView.setBackgroundResource(R.drawable.picktop_rounded_edittext_selected_background)
             textView.setTextColor(ContextCompat.getColor(this, R.color.white))
         }
@@ -101,7 +103,7 @@ class LoginPickEctActivity : AppCompatActivity() {
     }
 
     private fun updatepickTopBtnNextState() {
-        if (selectedpickEct.isNotEmpty()) {
+        if (selectedPickEctIndexes.isNotEmpty()) {
             pickEctBtnNext.isEnabled = true
             pickEctBtnNext.backgroundTintList = ContextCompat.getColorStateList(this, R.color.purple)
         } else {
