@@ -4,10 +4,10 @@ data class SignUpRequest(
     val email: String,
     val loginId: String,
     val password: String,
-    val constitution: Int = 0,
+    val constitution: Int,
     val locationPostRequestDto: LocationPostRequestDto,
     val closetUpdateRequestDto: ClosetUpdateRequestDto,
-    val tasteIds: List<Int> = emptyList()
+    val tasteIds: List<Int>
 )
 
 data class LocationPostRequestDto(
@@ -18,7 +18,7 @@ data class LocationPostRequestDto(
 )
 
 data class ClosetUpdateRequestDto(
-    val uppers: List<Int> = emptyList(),
-    val lowers: List<Int> = emptyList(),
-    val others: List<Int> = emptyList()
+    val uppers: List<Int>,
+    val lowers: List<Int>,
+    val others: List<Int>
 )
