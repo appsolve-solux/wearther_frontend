@@ -1,6 +1,5 @@
 package com.jm.appsolve_fe
 
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

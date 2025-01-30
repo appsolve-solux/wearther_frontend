@@ -1,6 +1,5 @@
 package com.jm.appsolve_fe
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,12 +11,19 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class Home : Fragment() {
 
     private lateinit var dateText : TextView
+
+    private lateinit var hwrecyclerView: RecyclerView
+    private var wList = ArrayList<HomeWeatherData>()
+    private lateinit var hwadapter: HomeWeatherAdapter
 
     @RequiresApi(Build.VERSION_CODES.O)
     private val now: LocalDate = LocalDate.now()
@@ -46,7 +52,7 @@ class Home : Fragment() {
         val gotoLocationButton: ImageButton = view.findViewById(R.id.gotoLocationBtn)
         gotoLocationButton.setOnClickListener {
             // LocationActivity로 이동
-            (activity as MainActivity).replaceFragment(Location())
+            (activity as HomeMainActivity).replaceFragment(Location())
         }
 
         // 청파동 3가 버튼 클릭 시 TodayRecommendedActivity로 이동
@@ -81,17 +87,44 @@ class Home : Fragment() {
 
         clothesItemLayout.setOnClickListener {
             // 다른 Fragment로 이동
-            (activity as MainActivity).replaceFragment(TodayRecommended())
+            (activity as HomeMainActivity).replaceFragment(TodayRecommended())
         }
-
-
-
-
+        
+        // 시간별 날씨 리사이클러뷰
+        hwrecyclerView = view.findViewById(R.id.home_weather_recyclerView)
+        hwrecyclerView.setHasFixedSize(true)
+        hwrecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        addData()
+        hwadapter = HomeWeatherAdapter(wList)
+        hwrecyclerView.adapter = hwadapter
 
 
         return view
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun addData() {
 
+        val now = LocalDateTime.now()
 
+        val hourlyTemp = listOf("4°", "3°", "2°", "2°", "1°", "0°", "-1°")
+        val hourlySky = listOf("흐림", "흐림", "구름 많음", "맑음", "맑음", "맑음", "맑음")
+
+        // 시간 증가에 따른 데이터 추가
+        for (i in 0 until 7) {
+            val currentHour = now.plusHours(i.toLong()) 
+            val hourFormatted = currentHour.format(DateTimeFormatter.ofPattern("HH시")) // 시각 포맷
+            val temperature = hourlyTemp.getOrElse(i) { "0°" }
+            val sky = hourlySky.getOrElse(i) { "맑음" } 
+            
+            val weatherImage = when (sky) {
+                "흐림" -> R.drawable.weather_cloudy
+                "맑음" -> R.drawable.weather_sun_cloudy
+                "구름 많음" -> R.drawable.weather_sun_cloudy
+                else -> R.drawable.weather_cloudy
+            }
+
+            wList.add(HomeWeatherData(hourFormatted, weatherImage, temperature))
+        }
+    }
 }

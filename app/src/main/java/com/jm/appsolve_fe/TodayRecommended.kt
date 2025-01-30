@@ -47,13 +47,13 @@ class TodayRecommended : Fragment() {
         val backBtn: AppCompatImageView = view.findViewById(R.id.backbtn)
         backBtn.setOnClickListener {
             // Home로 이동
-            (activity as MainActivity).replaceFragment(Home())
+            (activity as HomeMainActivity).replaceFragment(Home())
         }
 
         val moreRecommendedBtn: Button = view.findViewById(R.id.moreRecommendBtn)
         moreRecommendedBtn.setOnClickListener {
             // Home로 이동
-            (activity as MainActivity).replaceFragment(Closet())
+            (activity as HomeMainActivity).replaceFragment(Closet())
         }
 
         return view
