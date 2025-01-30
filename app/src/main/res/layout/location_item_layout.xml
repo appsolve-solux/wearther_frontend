@@ -15,6 +15,7 @@
         tools:ignore="MissingConstraints">
 
         <TextView
+            android:id="@+id/tv_adminarea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-13dp"
@@ -24,6 +25,7 @@
             android:textSize="10sp" />
 
         <TextView
+            android:id="@+id/tv_locality"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
@@ -33,10 +35,10 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tv_thoroughfare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
-
             android:text="송파1동"
             android:textColor="@color/black"
             android:textSize="23sp"

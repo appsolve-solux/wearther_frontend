@@ -1,27 +1,20 @@
 package com.jm.appsolve_fe
 
 import android.annotation.SuppressLint
-import android.app.Dialog
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.SearchView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jm.appsolve_fe.databinding.FragmentLocationBinding
-import com.jm.appsolve_fe.databinding.SearchLocationDialogBinding
 import java.util.Collections
 
 class Location : Fragment() {
@@ -33,12 +26,6 @@ class Location : Fragment() {
     private lateinit var bookmarkrecyclerView: RecyclerView
     private var bList = ArrayList<BookmarkData>()
     private lateinit var bookmarkadapter: BookmarkAdapter
-
-    // dialog 내부
-    private lateinit var loclistrecyclerView: RecyclerView
-    private lateinit var searchView: SearchView
-    private var mList = ArrayList<LocationData>()
-    private lateinit var locationlistadapter: LocationAdapter
 
     @SuppressLint("MissingPermission")
     override fun onCreateView(
@@ -60,6 +47,8 @@ class Location : Fragment() {
         }
 
         val currentLocationLayout: LinearLayout = view.findViewById(R.id.currentlocationlayout)
+        val getCurrentLocation = GetCurrentLocation(requireContext())
+        getCurrentLocation.getCurrentLocation()
 
         bookmarkrecyclerView = view.findViewById(R.id.bookmark_location_recyclerView)
         bookmarkrecyclerView.setHasFixedSize(true)

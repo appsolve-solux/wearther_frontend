@@ -13,6 +13,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.location.FusedLocationProviderClient
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -27,6 +28,11 @@ class Home : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private val now: LocalDate = LocalDate.now()
+
+    //현재 위치 위경도
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
 
     // Fragment에서 받을 매개변수
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +60,11 @@ class Home : Fragment() {
             // LocationActivity로 이동
             (activity as HomeMainActivity).replaceFragment(Location())
         }
+
+        //현재 위치 위경도,주소 받기
+        val getCurrentLocation = GetCurrentLocation(requireContext())
+        getCurrentLocation.getCurrentLocation()
+
 
         // 청파동 3가 버튼 클릭 시 TodayRecommendedActivity로 이동
         val locationBtn1: Button = view.findViewById(R.id.locationBtn1)
