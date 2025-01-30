@@ -15,4 +15,7 @@ interface SignUpService {
     fun checkDuplicate(
         @Query("loginId") loginId: String
     ): Call<SignUpResponse>
+
+    @POST("/auth/login")
+    fun login(@Body request: LoginRequest): Call<LoginResponse>
 }

@@ -22,3 +22,9 @@ data class ClosetUpdateRequestDto(
     val lowers: List<Int>,
     val others: List<Int>
 )
+
+data class LoginRequest(
+    val loginId: String,
+    val userPw: String,
+    val deviceId: String
+)

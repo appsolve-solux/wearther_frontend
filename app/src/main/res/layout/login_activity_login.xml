@@ -100,7 +100,7 @@
                 android:layout_marginTop="10dp">
 
                 <EditText
-                    android:id="@+id/etId"
+                    android:id="@+id/loginId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="아이디 입력"
@@ -109,7 +109,7 @@
                     android:background="@drawable/rounded_edittext_background"/>
 
                 <EditText
-                    android:id="@+id/etPassword"
+                    android:id="@+id/loginPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="비밀번호 입력"

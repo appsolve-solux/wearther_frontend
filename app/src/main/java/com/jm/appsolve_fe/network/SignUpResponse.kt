@@ -11,3 +11,16 @@ data class SignUpResponse(
         val isDuplicated: Boolean? = null
     )
 }
+
+data class LoginResponse(
+    val httpStatus: String,
+    val success: Boolean,
+    val result: Result?,
+    val error: String?
+) {
+    data class Result(
+        val accessToken: String,
+        val refreshToken: String,
+        val memberId: Int
+    )
+}

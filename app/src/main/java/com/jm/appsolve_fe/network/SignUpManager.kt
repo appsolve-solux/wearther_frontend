@@ -2,7 +2,7 @@ package com.jm.appsolve_fe.network
 
 import android.content.Context
 import android.content.Intent
-import com.jm.appsolve_fe.NextActivity
+import com.jm.appsolve_fe.MainActivity
 import com.jm.appsolve_fe.SignUpDataStore
 import retrofit2.Call
 import retrofit2.Callback
@@ -60,7 +60,7 @@ object SignUpManager {
         RetrofitClient.apiService.signUp(requestBody).enqueue(object : Callback<SignUpResponse> {
             override fun onResponse(call: Call<SignUpResponse>, response: Response<SignUpResponse>) {
                 if (response.isSuccessful) {
-                    context.startActivity(Intent(context, NextActivity::class.java))
+                    context.startActivity(Intent(context, MainActivity::class.java))
                 } else {
                     // 실패 처리
                 }
