@@ -57,7 +57,7 @@ object SignUpManager {
             tasteIds = tasteIds
         )
 
-        RetrofitClient.apiService.signUp(requestBody).enqueue(object : Callback<SignUpResponse> {
+        RetrofitClient.signUpService.signUp(requestBody).enqueue(object : Callback<SignUpResponse> {
             override fun onResponse(call: Call<SignUpResponse>, response: Response<SignUpResponse>) {
                 if (response.isSuccessful) {
                     context.startActivity(Intent(context, MainActivity::class.java))

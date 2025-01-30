@@ -28,3 +28,8 @@ data class LoginRequest(
     val userPw: String,
     val deviceId: String
 )
+
+data class RefreshTokenRequest(
+    val refreshToken: String,
+    val deviceId: String
+)

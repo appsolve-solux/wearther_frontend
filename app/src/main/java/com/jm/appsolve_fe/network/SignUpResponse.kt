@@ -24,3 +24,19 @@ data class LoginResponse(
         val memberId: Int
     )
 }
+
+data class RefreshTokenResponse(
+    val httpStatus: String,
+    val success: Boolean,
+    val result: Result?,
+    val error: ErrorResponse?
+) {
+    data class Result(
+        val accessToken: String
+    )
+
+    data class ErrorResponse(
+        val code: String,
+        val message: String
+    )
+}

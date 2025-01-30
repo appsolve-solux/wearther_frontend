@@ -9,7 +9,6 @@ object RetrofitClient {
     private const val BASE_URL = "http://54.180.114.64:8080/"
 
     private val retrofit: Retrofit by lazy {
-        // LoggingInterceptor 추가 (선택 사항)
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
@@ -25,7 +24,7 @@ object RetrofitClient {
             .build()
     }
 
-    val apiService: SignUpService by lazy {
+    val signUpService: SignUpService by lazy {
         retrofit.create(SignUpService::class.java)
     }
 }

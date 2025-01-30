@@ -18,4 +18,7 @@ interface SignUpService {
 
     @POST("/auth/login")
     fun login(@Body request: LoginRequest): Call<LoginResponse>
+
+    @POST("/auth/refresh")
+    fun refreshAccessToken(@Body request: RefreshTokenRequest): Call<RefreshTokenResponse>
 }

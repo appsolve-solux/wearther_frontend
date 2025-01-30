@@ -80,7 +80,7 @@ class LoginSignUpIdActivity : AppCompatActivity() {
         tvDupResult: TextView,
         idBtnNext: Button
     ) {
-        RetrofitClient.apiService.checkDuplicate(idInput).enqueue(object : Callback<SignUpResponse> {
+        RetrofitClient.signUpService.checkDuplicate(idInput).enqueue(object : Callback<SignUpResponse> {
             override fun onResponse(call: Call<SignUpResponse>, response: Response<SignUpResponse>) {
                 if (response.isSuccessful) {
                     val isDuplicated = response.body()?.result?.isDuplicated?: false
