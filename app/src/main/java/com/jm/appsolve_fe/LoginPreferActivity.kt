@@ -168,8 +168,8 @@ class LoginPreferActivity : AppCompatActivity() {
 
 
     private fun updatepickTopBtnNextState() {
-        pickEctBtnNext.isEnabled = selectedTasteIndexes.size == 3
-        pickEctBtnNext.backgroundTintList = if (selectedTasteIndexes.size == 3) {
+        pickEctBtnNext.isEnabled = selectedTasteIndexes.isNotEmpty()
+        pickEctBtnNext.backgroundTintList = if (selectedTasteIndexes.isNotEmpty()) {
             ContextCompat.getColorStateList(this, R.color.purple)
         } else {
             ContextCompat.getColorStateList(this, R.color.gray_9E9E9E)

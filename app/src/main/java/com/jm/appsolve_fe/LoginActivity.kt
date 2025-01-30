@@ -107,7 +107,7 @@ class LoginActivity : AppCompatActivity() {
                             SignUpDataStore.saveData(this@LoginActivity, "memberId", result.memberId?.toString() ?: "0")
 
                             // 메인 화면 이동
-                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                            startActivity(Intent(this@LoginActivity, HomeMainActivity::class.java))
                             finish()
                         } else {
                             Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
