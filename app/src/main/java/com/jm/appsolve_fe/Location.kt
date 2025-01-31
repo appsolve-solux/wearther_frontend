@@ -9,6 +9,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -24,7 +25,7 @@ class Location : Fragment() {
 
     // 즐겨찾기
     private lateinit var bookmarkrecyclerView: RecyclerView
-    private var bList = ArrayList<BookmarkData>()
+    private var bList: ArrayList<BookmarkData> = ArrayList()
     private lateinit var bookmarkadapter: BookmarkAdapter
 
     @SuppressLint("MissingPermission")
@@ -46,6 +47,7 @@ class Location : Fragment() {
             (activity as HomeMainActivity).replaceFragment(Home())
         }
 
+        // 현재 위치 받아오기
         val currentLocationLayout: LinearLayout = view.findViewById(R.id.currentlocationlayout)
         val getCurrentLocation = GetCurrentLocation(requireContext())
         getCurrentLocation.getCurrentLocation()
@@ -101,22 +103,32 @@ class Location : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // dialog.show
-        val selectItemButton: ImageButton = view.findViewById(R.id.opendialog)
-        selectItemButton.setOnClickListener {
-            // BottomSheetDialog 호출
-            LocationBottomSheetDialog { selectedLocation ->
+        val openDialogButton: ImageButton =
+            view.findViewById(R.id.opendialog)
+        openDialogButton.setOnClickListener {
+            LocationBottomSheetDialog(bList) { selectedLocation, latLng ->
                 val addressParts = selectedLocation.address.split(" ")
-                //텍스트 파싱
+
                 val newBookmark = BookmarkData(
                     addressParts.getOrElse(1) { "" },
                     addressParts.getOrElse(2) { "" },
                     addressParts.getOrElse(3) { "" }
                 )
+
                 bList.add(newBookmark)
                 bookmarkadapter.notifyDataSetChanged()
+
+                latLng?.let { (latitude, longitude) ->
+                    Toast.makeText(
+                        requireContext(),
+                        "위도: $latitude, 경도: $longitude",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }.show(requireContext())
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

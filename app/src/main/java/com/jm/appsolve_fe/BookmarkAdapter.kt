@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class BookmarkAdapter(var bList: List<BookmarkData>,  private val onDeleteItem: (Int) -> Unit) : RecyclerView.Adapter<BookmarkAdapter.BookmarkViewHolder>() {
+class BookmarkAdapter(var bList: MutableList<BookmarkData>,  private val onDeleteItem: (Int) -> Unit) : RecyclerView.Adapter<BookmarkAdapter.BookmarkViewHolder>() {
 
     inner class BookmarkViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val firstaddress : TextView = itemView.findViewById(R.id.tv_1st_address)
