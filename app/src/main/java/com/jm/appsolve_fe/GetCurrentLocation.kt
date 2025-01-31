@@ -107,7 +107,7 @@ class GetCurrentLocation(private val context: Context) {
                         if (weatherData?.success == true) {
 
                             val temperature = weatherData.result
-                            // °C -> ° 변환
+                            // °C -> ° 로 변경
                             val cleanedTemperature = temperature.replace("°C", "°")
                             // currentTemperature가 초기화된 후에만 텍스트 설정
                             if (::currentTemperature.isInitialized) {

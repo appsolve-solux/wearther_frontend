@@ -2,6 +2,7 @@ package com.jm.appsolve_fe
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,11 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jm.appsolve_fe.databinding.FragmentLocationBinding
+import com.jm.appsolve_fe.retrofit.GetBookmarkLocationResponse
+import com.jm.appsolve_fe.retrofit.LWRetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.Collections
 
 class Location : Fragment() {
@@ -102,7 +108,51 @@ class Location : Fragment() {
             downArrow.visibility = View.VISIBLE
         }
 
+        getBookmarkLocations()
+
         return view
+    }
+
+    private fun getBookmarkLocations() {
+        val token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNCIsImlhdCI6MTczODMxMDM4OCwiZXhwIjoxNzQwOTAyMzg4fQ.Pma0mIzOiSPvUto6Ya8qs1Cncoz5W2QBkOiZiGkiD40" // 토큰 예시
+
+        LWRetrofitClient.service.getBookmarkLocation("Bearer $token")
+            .enqueue(object : Callback<GetBookmarkLocationResponse> {
+                override fun onResponse(
+                    call: Call<GetBookmarkLocationResponse>,
+                    response: Response<GetBookmarkLocationResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        Log.d("Location", "API Response Successful: ${response.body()}")
+                        val result = response.body()?.result
+                        if (result != null && result.locations.isNotEmpty()) {
+                            // 즐겨찾기 데이터 추가
+                            for (location in result.locations) {
+                                val addressParts = location.locationInfo.split(" ")
+                                val newBookmark = BookmarkData(
+                                    addressParts.getOrElse(1) { "" },
+                                    addressParts.getOrElse(2) { "" },
+                                    addressParts.getOrElse(3) { "" },
+                                    location.temperature?.replace("°C", "°") ?: "N/A"
+                                )
+                                bList.add(newBookmark)
+                            }
+                            bookmarkadapter.notifyDataSetChanged()
+                        } else {
+                            Log.d("Location", "No Locations Found")
+                            Toast.makeText(requireContext(), "위치 정보가 없습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        Log.e("Location", "API Response Error: ${response.code()} - ${response.message()}")
+                        Toast.makeText(requireContext(), "서버 오류: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<GetBookmarkLocationResponse>, t: Throwable) {
+                    Log.e("Location", "API 호출 실패: ${t.message}")
+                    Toast.makeText(requireContext(), "API 호출 실패: ${t.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -118,7 +168,8 @@ class Location : Fragment() {
                 val newBookmark = BookmarkData(
                     addressParts.getOrElse(1) { "" },
                     addressParts.getOrElse(2) { "" },
-                    addressParts.getOrElse(3) { "" }
+                    addressParts.getOrElse(3) { "" },
+                    "N/A"
                 )
 
                 bList.add(newBookmark)
