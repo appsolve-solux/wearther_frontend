@@ -18,7 +18,7 @@ interface LocationWeatherService {
         @Body request: PostBookmarkLocationRequest
     ): Call<PostBookmarkLocationResponse>
 
-    @GET("/location/get")
+    @GET("/location/get") //+
     fun getBookmarkLocation(
         @Header("Authorization") token: String
     ): Call<GetBookmarkLocationResponse>

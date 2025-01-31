@@ -2,10 +2,16 @@ package com.jm.appsolve_fe
 
 import android.app.Dialog
 import android.content.Context
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
+import com.jm.appsolve_fe.retrofit.DeleteBookmarkLocationRequest
+import com.jm.appsolve_fe.retrofit.LWRetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LocationDeleteDialog(
     private val context: Context,
@@ -36,15 +42,39 @@ class LocationDeleteDialog(
             val tvToast = toast.findViewById<TextView>(R.id.tvToast)
             tvToast.text = toastMessage
 
-            Toast(context).apply {
-                duration = Toast.LENGTH_SHORT
-                setGravity(Gravity.BOTTOM, 0, 250)
-                view = toast
-            }.show()
 
-            // 아이템 삭제
-            bookmarkList.removeAt(position)
-            bookmarkAdapter.notifyDataSetChanged() // RecyclerView 갱신
+            val locationIndex = position
+            val token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNCIsImlhdCI6MTczODMxMDM4OCwiZXhwIjoxNzQwOTAyMzg4fQ.Pma0mIzOiSPvUto6Ya8qs1Cncoz5W2QBkOiZiGkiD40" // 실제 토큰을 여기에 넣어야 함
+
+            LWRetrofitClient.service.deleteBookmarkLocation("Bearer $token", locationIndex)
+                .enqueue(object : Callback<DeleteBookmarkLocationRequest> {
+                    override fun onResponse(
+                        call: Call<DeleteBookmarkLocationRequest>,
+                        response: Response<DeleteBookmarkLocationRequest>
+                    ) {
+                        if (response.isSuccessful) {
+                            Log.d("Location", "API Response Successful: ${response.body()}")
+                            // 서버에서 삭제 후 UI에서 아이템 삭제
+                            bookmarkList.removeAt(position)
+                            bookmarkAdapter.notifyDataSetChanged()
+
+                            // 삭제 완료 메시지 Toast
+                            Toast(context).apply {
+                                duration = Toast.LENGTH_SHORT
+                                setGravity(Gravity.BOTTOM, 0, 250)
+                                view = toast
+                            }.show()
+
+                            dialog.dismiss()
+                        } else {
+                            Toast.makeText(context, "삭제 실패: ${response.code()}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<DeleteBookmarkLocationRequest>, t: Throwable) {
+                        Toast.makeText(context, "네트워크 오류: ${t.message}", Toast.LENGTH_SHORT).show()
+                    }
+                })
 
             dialog.dismiss()
         }
