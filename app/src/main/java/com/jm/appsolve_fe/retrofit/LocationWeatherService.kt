@@ -12,7 +12,7 @@ import retrofit2.http.Path
 interface LocationWeatherService {
 
     // 즐겨찾기
-    @POST("/location/post")
+    @POST("/location/post") //+
     fun postBookmarkLocation(
         @Header("Authorization") token: String,
         @Body request: PostBookmarkLocationRequest

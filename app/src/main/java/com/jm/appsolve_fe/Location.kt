@@ -28,6 +28,8 @@ class Location : Fragment() {
     private var bList: ArrayList<BookmarkData> = ArrayList()
     private lateinit var bookmarkadapter: BookmarkAdapter
 
+    private lateinit var currentLocationTemperature: TextView
+
     @SuppressLint("MissingPermission")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,9 +50,13 @@ class Location : Fragment() {
         }
 
         // 현재 위치 받아오기
+        currentLocationTemperature = view.findViewById(R.id.tv_locationtemperature)
         val currentLocationLayout: LinearLayout = view.findViewById(R.id.currentlocationlayout)
         val getCurrentLocation = GetCurrentLocation(requireContext())
+        getCurrentLocation.setCurrentLocationTemperature(currentLocationTemperature)
         getCurrentLocation.getCurrentLocation()
+
+
 
         bookmarkrecyclerView = view.findViewById(R.id.bookmark_location_recyclerView)
         bookmarkrecyclerView.setHasFixedSize(true)

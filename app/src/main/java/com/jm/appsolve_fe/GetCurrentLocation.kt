@@ -10,15 +10,29 @@ import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.provider.Settings
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.jm.appsolve_fe.retrofit.LWRetrofitClient
+import com.jm.appsolve_fe.retrofit.currentBookmarkLocationWeatherResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.Locale
 
 class GetCurrentLocation(private val context: Context) {
+
+    private lateinit var currentTemperature: TextView
+
+    // currentTemperature TextView 전달 함수
+    fun setCurrentLocationTemperature(tv: TextView) {
+        currentTemperature = tv
+    }
+
 
     private var fusedLocationClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context)
@@ -41,6 +55,7 @@ class GetCurrentLocation(private val context: Context) {
                     if (location != null) {
                         val latitude = location.latitude
                         val longitude = location.longitude
+                        getWeatherData(latitude, longitude) // 날씨 데이터 가져오기
                         getAddressFromLocation(latitude, longitude)
                     } else {
                         Toast.makeText(context, "위치 정보를 가져올 수 없습니다.", Toast.LENGTH_SHORT).show()
@@ -76,6 +91,39 @@ class GetCurrentLocation(private val context: Context) {
             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
             PERMISSION_REQUEST_ACCESS_LOCATION
         )
+    }
+    private fun getWeatherData(latitude: Double, longitude: Double) {
+        val token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNCIsImlhdCI6MTczODMxMDM4OCwiZXhwIjoxNzQwOTAyMzg4fQ.Pma0mIzOiSPvUto6Ya8qs1Cncoz5W2QBkOiZiGkiD40"
+
+        // 날씨 API 호출
+        LWRetrofitClient.service.currentBookmarkLocationWeather("Bearer $token", latitude, longitude)
+            .enqueue(object : Callback<currentBookmarkLocationWeatherResponse> {
+                override fun onResponse(
+                    call: Call<currentBookmarkLocationWeatherResponse>,
+                    response: Response<currentBookmarkLocationWeatherResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val weatherData = response.body()
+                        if (weatherData?.success == true) {
+
+                            val temperature = weatherData.result
+                            // currentTemperature가 초기화된 후에만 텍스트 설정
+                            currentTemperature?.let {
+                                it.text = "$temperature"
+                            }
+                            Log.d("WeatherAPI", "성공, $temperature")
+                        } else {
+                            Log.e("WeatherAPI", "Error: Success is false")
+                        }
+                    } else {
+                        Log.e("WeatherAPI", "Error code: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<currentBookmarkLocationWeatherResponse>, t: Throwable) {
+                    Toast.makeText(context, "API 호출 실패", Toast.LENGTH_SHORT).show()
+                }
+            })
     }
 
     private fun getAddressFromLocation(latitude: Double, longitude: Double) {
