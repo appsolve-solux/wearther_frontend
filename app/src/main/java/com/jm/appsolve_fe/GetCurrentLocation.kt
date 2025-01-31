@@ -108,8 +108,8 @@ class GetCurrentLocation(private val context: Context) {
 
                             val temperature = weatherData.result
                             // currentTemperature가 초기화된 후에만 텍스트 설정
-                            currentTemperature?.let {
-                                it.text = "$temperature"
+                            if (::currentTemperature.isInitialized) {
+                                currentTemperature.text = "$temperature"
                             }
                             Log.d("WeatherAPI", "성공, $temperature")
                         } else {

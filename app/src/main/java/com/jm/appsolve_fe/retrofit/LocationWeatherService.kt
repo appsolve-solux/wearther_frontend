@@ -36,7 +36,7 @@ interface LocationWeatherService {
     ): Call<updateBookmarkLocationIndexResponse>
 
     //즐겨찾기 현재 위치 날씨
-    @GET("/location/current-tmp/{latitude}/{longitude}")
+    @GET("/location/current-tmp/{latitude}/{longitude}") //+
     fun currentBookmarkLocationWeather(
         @Header("Authorization") token: String,
         @Path("latitude") latitude: Double,
