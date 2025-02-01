@@ -24,7 +24,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/closet_clothes_etc_01" />
+                android:background="@drawable/zigzag" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -36,7 +36,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="기타"
+                    android:text="상의"
                     android:textColor="@color/purple"
                     android:textSize="14dp"
                     android:textStyle="bold" />
@@ -44,54 +44,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="장화 및 우산"
-                    android:textColor="@color/black"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="#에이블리"
-                    android:textColor="@color/gray_9E9E9E"
-                    android:textSize="12dp" />
-            </LinearLayout>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="8dp"
-            android:padding="16dp"
-            android:radius="8dp"
-            android:background="@drawable/closet_tab_scroll">
-
-            <ImageView
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/closet_clothes_etc_01" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_marginStart="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="기타"
-                    android:textColor="@color/purple"
-                    android:textSize="14dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="장화 및 우산"
+                    android:text="셔츠/블라우스"
                     android:textColor="@color/black"
                     android:textSize="16dp" />
 
@@ -117,7 +70,9 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/closet_clothes_etc_01" />
+                android:background="@drawable/musinsa"
+                android:scaleType="fitXY"
+                />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -129,7 +84,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="기타"
+                    android:text="상의"
                     android:textColor="@color/purple"
                     android:textSize="14dp"
                     android:textStyle="bold" />
@@ -137,18 +92,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="장화 및 우산"
+                    android:text="셔츠/블라우스"
                     android:textColor="@color/black"
                     android:textSize="16dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="#29cm"
+                    android:text="#무신사"
                     android:textColor="@color/gray_9E9E9E"
                     android:textSize="12dp" />
             </LinearLayout>
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -163,7 +119,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/closet_clothes_etc_01" />
+                android:background="@drawable/_29cm"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -175,7 +131,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="기타"
+                    android:text="상의"
                     android:textColor="@color/purple"
                     android:textSize="14dp"
                     android:textStyle="bold" />
@@ -183,18 +139,69 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="장화 및 우산"
+                    android:text="셔츠/블라우스"
                     android:textColor="@color/black"
                     android:textSize="16dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="#무신사"
+                    android:text="#29cm"
                     android:textColor="@color/gray_9E9E9E"
                     android:textSize="12dp" />
             </LinearLayout>
         </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp"
+            android:padding="16dp"
+            android:radius="8dp"
+            android:background="@drawable/closet_tab_scroll">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ably"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="상의"
+                    android:textColor="@color/purple"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="셔츠/블라우스"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="#에이블리"
+                    android:textColor="@color/gray_9E9E9E"
+                    android:textSize="12dp" />
+            </LinearLayout>
+        </LinearLayout>
+
 
     </LinearLayout>
 </ScrollView>

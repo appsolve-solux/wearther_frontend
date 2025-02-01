@@ -11,6 +11,5 @@
         android:id="@+id/image_clothes"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/closet_clothes_etc_01" />
+        android:scaleType="centerCrop"/>
 </LinearLayout>

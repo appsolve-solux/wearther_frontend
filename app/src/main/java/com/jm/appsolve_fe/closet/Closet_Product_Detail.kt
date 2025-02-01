@@ -9,7 +9,7 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.jm.appsolve_fe.R
 
 
-class closet_product_detail : AppCompatActivity() {
+class Closet_Product_Detail : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +24,8 @@ class closet_product_detail : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         // 각 탭에 사용할 Fragment 초기화
-        val tab01: Fragment = tab01()
-        val tab02: Fragment = tab02()
+        val tab01: Fragment = ClosetTab01()
+        val tab02: Fragment = ClosetTab02()
 
         supportFragmentManager.beginTransaction().replace(R.id.container, tab01).commit()
 
