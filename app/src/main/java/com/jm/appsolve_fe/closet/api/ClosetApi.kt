@@ -9,7 +9,9 @@ import retrofit2.http.Header
 
 interface ClosetApi {
     @GET("closet/recommend")
-    fun getRecommendedCloset(): Call<ClosestResponseWrapper>
+    fun getRecommendedCloset(
+        @Header("Authorization") token: String
+    ): Call<ClosestResponseWrapper>
 
     @GET("closet/clothes")
     fun getClosetData(

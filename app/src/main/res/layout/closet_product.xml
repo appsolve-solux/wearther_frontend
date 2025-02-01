@@ -22,147 +22,17 @@
             android:gravity="center"
             android:background="@drawable/closet_textbox_2" />
 
-        <ScrollView
-            android:id="@+id/scroll_products"
+        <!-- 스크롤 가능한 이미지 목록 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="9"
-            app:layout_constraintTop_toBottomOf="@id/text_recommended_products"
-            app:layout_constraintBottom_toTopOf="@id/btn_closet_edit"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:id="@+id/product_clothes01"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:layout_margin="3dp"
-                        android:src="@drawable/up_04"
-                        android:scaleType="centerCrop" />
-                    <ImageView
-                        android:id="@+id/product_clothes02"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:layout_margin="3dp"
-                        android:src="@drawable/up_05"
-                        android:scaleType="centerCrop" />
-                    <ImageView
-                        android:id="@+id/product_clothes03"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:layout_margin="3dp"
-                        android:src="@drawable/up_06"
-                        android:scaleType="centerCrop" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:id="@+id/product_clothes04"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:layout_margin="3dp"
-                        android:src="@drawable/up_07"
-                        android:scaleType="centerCrop" />
-                    <ImageView
-                        android:id="@+id/product_clothes05"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:layout_margin="3dp"
-                        android:src="@drawable/up_08"
-                        android:scaleType="centerCrop" />
-                    <ImageView
-                        android:id="@+id/product_clothes06"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:layout_margin="3dp"
-                        android:src="@drawable/up_09"
-                        android:scaleType="centerCrop" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:id="@+id/product_clothes07"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:layout_margin="3dp"
-                        android:src="@drawable/up_10"
-                        android:scaleType="centerCrop" />
-                    <ImageView
-                        android:id="@+id/product_clothes08"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:layout_margin="3dp"
-                        android:src="@drawable/up_11"
-                        android:scaleType="centerCrop" />
-                    <ImageView
-                        android:id="@+id/product_clothes09"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:layout_margin="3dp"
-                        android:src="@drawable/up_12"
-                        android:scaleType="centerCrop" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:id="@+id/product_clothes10"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:layout_margin="3dp"
-                        android:src="@drawable/up_13"
-                        android:scaleType="centerCrop" />
-                    <ImageView
-                        android:id="@+id/product_clothes11"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:layout_margin="3dp"
-                        android:src="@drawable/up_14"
-                        android:scaleType="centerCrop" />
-                    <ImageView
-                        android:id="@+id/product_clothes12"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:layout_margin="3dp"
-                        android:src="@drawable/up_15"
-                        android:scaleType="centerCrop" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:id="@+id/product_clothes13"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:layout_margin="3dp"
-                        android:src="@drawable/down_04"
-                        android:scaleType="centerCrop" />
-                    <ImageView
-                        android:id="@+id/product_clothes14"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:layout_margin="3dp"
-                        android:src="@drawable/down_05"
-                        android:scaleType="centerCrop" />
-                    <ImageView
-                        android:id="@+id/product_clothes15"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:layout_margin="3dp"
-                        android:src="@drawable/down_06"
-                        android:scaleType="centerCrop" />
-                </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
+            app:layout_constraintTop_toBottomOf="@id/text_recommended_products" />
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

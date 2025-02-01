@@ -7,35 +7,78 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.jm.appsolve_fe.R
 
-class ClosetAdapter(private val upperclothesList: List<Int>, private val lowerclothesList: List<Int>, private val otherclothesList: List<Int>) : RecyclerView.Adapter<ClosetAdapter.ClosetViewHolder>() {
-    class ClosetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageView: ImageView = itemView.findViewById(R.id.closet_item_icon)
+class ClosetAdapter(
+    private var upperclothesList: List<Int>,
+    private var lowerclothesList: List<Int>,
+    private var otherclothesList: List<Int>
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    companion object {
+        private const val TYPE_UPPER = 0
+        private const val TYPE_LOWER = 1
+        private const val TYPE_OTHER = 2
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClosetViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.closet_item_clothes, parent, false)
-        return ClosetViewHolder(view)
+    override fun getItemViewType(position: Int): Int {
+        return when {
+            position < upperclothesList.size -> TYPE_UPPER
+            position < upperclothesList.size + lowerclothesList.size -> TYPE_LOWER
+            else -> TYPE_OTHER
+        }
     }
 
-    override fun onBindViewHolder(holder: ClosetViewHolder, position: Int) {
-        val upperitem = upperclothesList[position]
-        val loweritem = lowerclothesList[position]
-        val otheritem = otherclothesList[position]
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return when (viewType) {
+            TYPE_UPPER -> UpperViewHolder(inflater.inflate(R.layout.closet_upper_clothes, parent, false))
+            TYPE_LOWER -> LowerViewHolder(inflater.inflate(R.layout.closet_lower_clothes, parent, false))
+            else -> OtherViewHolder(inflater.inflate(R.layout.closet_other_clothes, parent, false))
+        }
+    }
 
-        val drawableResId1 = getUpperDrawable(upperitem)
-        val drawableResId2 = getLowerDrawable(loweritem)
-        val drawableResId3 = getOtherDrawable(otheritem)
-
-        // 이미지 설정
-        holder.imageView.setImageResource(drawableResId1)
-        holder.imageView.setImageResource(drawableResId2)
-        holder.imageView.setImageResource(drawableResId3)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is UpperViewHolder -> {
+                val upperItem = upperclothesList[position]
+                holder.upperImageView.setImageResource(getUpperDrawable(upperItem))
+            }
+            is LowerViewHolder -> {
+                val lowerIndex = position - upperclothesList.size
+                val lowerItem = lowerclothesList[lowerIndex]
+                holder.lowerImageView.setImageResource(getLowerDrawable(lowerItem))
+            }
+            is OtherViewHolder -> {
+                val otherIndex = position - upperclothesList.size - lowerclothesList.size
+                val otherItem = otherclothesList[otherIndex]
+                holder.otherImageView.setImageResource(getOtherDrawable(otherItem))
+            }
+        }
     }
 
     override fun getItemCount(): Int {
-        return upperclothesList.size
+        return upperclothesList.size + lowerclothesList.size + otherclothesList.size
     }
 
+    // ✅ 데이터 업데이트 함수 추가
+    fun updateData(newUppers: List<Int>, newLowers: List<Int>, newOthers: List<Int>) {
+        upperclothesList = newUppers
+        lowerclothesList = newLowers
+        otherclothesList = newOthers
+        notifyDataSetChanged()
+    }
+
+    // 🔹 ViewHolder 분리 (상의, 하의, 기타)
+    class UpperViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val upperImageView: ImageView = itemView.findViewById(R.id.upper_item_icon)
+    }
+
+    class LowerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val lowerImageView: ImageView = itemView.findViewById(R.id.lower_item_icon)
+    }
+
+    class OtherViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val otherImageView: ImageView = itemView.findViewById(R.id.other_item_icon)
+    }
 
     // ✅ 옷 ID에 따라 적절한 drawable 반환하는 함수
     private fun getUpperDrawable(itemId: Int): Int {
@@ -61,7 +104,7 @@ class ClosetAdapter(private val upperclothesList: List<Int>, private val lowercl
             19 -> R.drawable.up_19
             20 -> R.drawable.up_20
             21 -> R.drawable.up_21
-            else -> R.drawable.ic_launcher_foreground // 기본 이미지
+            else -> R.drawable.standard_image
         }
     }
 
@@ -77,7 +120,10 @@ class ClosetAdapter(private val upperclothesList: List<Int>, private val lowercl
             8 -> R.drawable.down_08
             9 -> R.drawable.down_09
             10 -> R.drawable.down_10
-            else -> R.drawable.ic_launcher_foreground // 기본 이미지
+            11 -> R.drawable.down_11
+            12 -> R.drawable.down_12
+            13 -> R.drawable.down_13
+            else -> R.drawable.standard_image
         }
     }
 
@@ -92,8 +138,7 @@ class ClosetAdapter(private val upperclothesList: List<Int>, private val lowercl
             7 -> R.drawable.etc_07
             8 -> R.drawable.etc_08
             9 -> R.drawable.etc_09
-            else -> R.drawable.ic_launcher_foreground // 기본 이미지
+            else -> R.drawable.standard_image
         }
     }
-
 }
