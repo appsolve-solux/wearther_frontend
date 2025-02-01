@@ -60,7 +60,15 @@ class Location : Fragment() {
         val currentLocationLayout: LinearLayout = view.findViewById(R.id.currentlocationlayout)
         val getCurrentLocation = GetCurrentLocation(requireContext())
         getCurrentLocation.setCurrentLocationTemperature(currentLocationTemperature)
-        getCurrentLocation.getCurrentLocation()
+        // 위치 받아오는 부분
+        getCurrentLocation.getCurrentLocation { latitude, longitude ->
+            // 여기서 위치를 받아온 후 처리할 작업을 추가합니다.
+            Log.d("Location", "위도: $latitude, 경도: $longitude")
+
+            // 현재 위치의 온도를 받아와서 텍스트뷰에 설정
+            getCurrentLocation.setCurrentLocationTemperature(currentLocationTemperature)
+        }
+
 
 
 

@@ -33,11 +33,11 @@ class GetCurrentLocation(private val context: Context) {
         currentTemperature = tv
     }
 
-
     private var fusedLocationClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context)
 
-    fun getCurrentLocation() {
+    // getCurrentLocation 함수에서 위도/경도를 콜백으로 전달하고, 주소 업데이트도 가능하도록 개선
+    fun getCurrentLocation(callback: (latitude: Double, longitude: Double) -> Unit) {
         if (checkPermissions()) {
             if (isLocationEnabled()) {
                 if (ActivityCompat.checkSelfPermission(
@@ -55,6 +55,7 @@ class GetCurrentLocation(private val context: Context) {
                     if (location != null) {
                         val latitude = location.latitude
                         val longitude = location.longitude
+                        callback(latitude, longitude) // 위도와 경도 콜백으로 전달
                         getWeatherData(latitude, longitude) // 날씨 데이터 가져오기
                         getAddressFromLocation(latitude, longitude)
                     } else {
@@ -92,7 +93,7 @@ class GetCurrentLocation(private val context: Context) {
             PERMISSION_REQUEST_ACCESS_LOCATION
         )
     }
-    private fun getWeatherData(latitude: Double, longitude: Double) {
+    fun getWeatherData(latitude: Double, longitude: Double) {
         val token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNCIsImlhdCI6MTczODMxMDM4OCwiZXhwIjoxNzQwOTAyMzg4fQ.Pma0mIzOiSPvUto6Ya8qs1Cncoz5W2QBkOiZiGkiD40"
 
         // 날씨 API 호출
@@ -111,8 +112,12 @@ class GetCurrentLocation(private val context: Context) {
                             val cleanedTemperature = temperature.replace("°C", "°")
                             // currentTemperature가 초기화된 후에만 텍스트 설정
                             if (::currentTemperature.isInitialized) {
-                                currentTemperature.text = "$cleanedTemperature"
+                                currentTemperature.text = cleanedTemperature
                             }
+                            val activity = context as Activity
+                            val tvlocationTemperature = activity.findViewById<TextView>(R.id.tv_locationtemperature)
+                            tvlocationTemperature?.text = cleanedTemperature
+
                             Log.d("WeatherAPI", "성공, $cleanedTemperature")
                         } else {
                             Log.e("WeatherAPI", "Error: Success is false")
@@ -145,17 +150,17 @@ class GetCurrentLocation(private val context: Context) {
                 val tvLocality = activity.findViewById<TextView>(R.id.tv_locality)
                 val tvThoroughfare = activity.findViewById<TextView>(R.id.tv_thoroughfare)
 
-                val tv1staddress = activity.findViewById<TextView>(R.id.tv_1st_address)
+                val tv_1st_address = activity.findViewById<TextView>(R.id.tv_1st_address)
                 val tv_2nd_address = activity.findViewById<TextView>(R.id.tv_2nd_address)
                 val tv_3rd_address = activity.findViewById<TextView>(R.id.tv_3rd_address)
 
                 // 광역시 처리
                 if (adminArea.endsWith("시")) {
                     tvAdminarea?.text = adminArea // 광역시일 때는 adminArea를 설정
-                    tv1staddress?.text = adminArea // 광역시일 때는 adminArea를 설정
+                    tv_1st_address?.text = adminArea // 광역시일 때는 adminArea를 설정
                 } else {
                     tvAdminarea?.text = locality // 광역시가 아니면 locality 설정
-                    tv1staddress?.text = locality // 광역시가 아니면 locality 설정
+                    tv_1st_address?.text = locality // 광역시가 아니면 locality 설정
                 }
 
                 tvLocality?.text = subLocality

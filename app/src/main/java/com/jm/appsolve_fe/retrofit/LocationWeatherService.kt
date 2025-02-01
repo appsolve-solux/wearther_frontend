@@ -8,6 +8,7 @@ import retrofit2.http.Header
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface LocationWeatherService {
 
@@ -23,7 +24,7 @@ interface LocationWeatherService {
         @Header("Authorization") token: String
     ): Call<GetBookmarkLocationResponse>
 
-    @DELETE("/location/delete/{locationindex}")
+    @DELETE("/location/delete/{locationindex}") //+
     fun deleteBookmarkLocation(
         @Header("Authorization") token: String,
         @Path("locationindex") locationIndex: Int
@@ -48,8 +49,9 @@ interface LocationWeatherService {
     fun homeCurrentLocationWeather(
         @Header("Authorization") token: String,
         @Path("locationIndex") locationIndex: Int,
-        latitude: Double,
-        longitude: Double
+        @Query("latitude") latitude: Double,
+        @Query("longitude") longitude: Double
+
     ): Call<homeCurrentLocationWeatherResponse>
 
     //오늘의 추천템 조회

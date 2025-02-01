@@ -2,6 +2,7 @@ package com.jm.appsolve_fe
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.jm.appsolve_fe.retrofit.GetBookmarkLocationResponse
+import com.jm.appsolve_fe.retrofit.GetBookmarkLocations
+import com.jm.appsolve_fe.retrofit.LWRetrofitClient
+import com.jm.appsolve_fe.retrofit.homeCurrentLocationWeatherResponse
+import com.jm.appsolve_fe.retrofit.homeCurrentLocationWeatherResult
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -29,10 +38,20 @@ class Home : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private val now: LocalDate = LocalDate.now()
 
+    //버튼
+    private lateinit var locationBtn1: Button
+    private lateinit var locationBtn2: Button
+    private lateinit var locationBtn3: Button
+
     //현재 위치 위경도
+    private lateinit var currentLocation: GetCurrentLocation
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
+    private lateinit var tvTemperature: TextView
+    private lateinit var tvHumidity: TextView
+    private lateinit var tvMinTemperature: TextView
+    private lateinit var tvMaxTemperature: TextView
 
     // Fragment에서 받을 매개변수
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +67,16 @@ class Home : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
+        val token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNCIsImlhdCI6MTczODMxMDM4OCwiZXhwIjoxNzQwOTAyMzg4fQ.Pma0mIzOiSPvUto6Ya8qs1Cncoz5W2QBkOiZiGkiD40"
+
+        // 위치 버튼 동적 생성
+        getBookmarkLocation(token) { locations ->
+            if (locations != null) {
+                // 위치 버튼들을 동적으로 생성
+                createLocationButtons(view, locations)
+            }
+        }
+
         // 오늘 날짜 출력
         dateText = view.findViewById(R.id.dateText)
         val formattedDate = now.format(DateTimeFormatter.ofPattern("MM월 dd일"))
@@ -61,38 +90,26 @@ class Home : Fragment() {
             (activity as HomeMainActivity).replaceFragment(Location())
         }
 
-        //현재 위치 위경도,주소 받기
-        val getCurrentLocation = GetCurrentLocation(requireContext())
-        getCurrentLocation.getCurrentLocation()
+        // GetCurrentLocation 객체 생성
+        currentLocation = GetCurrentLocation(requireContext())
+        tvTemperature = view.findViewById(R.id.tv_temperature)
+        tvMinTemperature = view.findViewById(R.id.tv_mintemperature)
+        tvMaxTemperature = view.findViewById(R.id.tv_maxtemperature)
+        tvHumidity = view.findViewById(R.id.tv_humidity)
 
-
-        // 청파동 3가 버튼 클릭 시 TodayRecommendedActivity로 이동
-        val locationBtn1: Button = view.findViewById(R.id.locationBtn1)
+        // 위치 버튼 설정
+        locationBtn1 = view.findViewById(R.id.locationBtn1)
+        locationBtn2 = view.findViewById(R.id.locationBtn2)
+        locationBtn3 = view.findViewById(R.id.locationBtn3)
         locationBtn1.isSelected = true
-        val locationBtn2: Button = view.findViewById(R.id.locationBtn2)
-        val locationBtn3: Button = view.findViewById(R.id.locationBtn3)
 
-        locationBtn1.setOnClickListener {
-            locationBtn1.isSelected = !locationBtn1.isSelected
 
-            locationBtn2.isSelected = false
-            locationBtn3.isSelected = false
-        }
-        locationBtn2.setOnClickListener {
-            // 버튼이 클릭되면 선택 상태를 변경
-            locationBtn2.isSelected = !locationBtn2.isSelected
+        locationBtn1.setOnClickListener { updateLocationSelection(locationBtn1, 1) }
+        locationBtn2.setOnClickListener { updateLocationSelection(locationBtn2, 2) }
+        locationBtn3.setOnClickListener { updateLocationSelection(locationBtn3, 3) }
 
-            locationBtn1.isSelected = false
-            locationBtn3.isSelected = false
-        }
-
-        locationBtn3.setOnClickListener {
-            // 버튼이 클릭되면 선택 상태를 변경
-            locationBtn3.isSelected = !locationBtn3.isSelected
-
-            locationBtn1.isSelected = false
-            locationBtn2.isSelected = false
-        }
+        // 현재 위치 날씨 자동 로드
+        getCurrentLocationAndLoadWeather()
 
         val clothesItemLayout: LinearLayout = view.findViewById(R.id.recommendClothes1)
 
@@ -105,37 +122,226 @@ class Home : Fragment() {
         hwrecyclerView = view.findViewById(R.id.home_weather_recyclerView)
         hwrecyclerView.setHasFixedSize(true)
         hwrecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        addData()
         hwadapter = HomeWeatherAdapter(wList)
         hwrecyclerView.adapter = hwadapter
 
-
         return view
+    }
+    
+    // 텍스트용 api 호출
+    fun getBookmarkLocation(token: String, callback: (List<GetBookmarkLocations>?) -> Unit) {
+        LWRetrofitClient.service.getBookmarkLocation("Bearer $token")
+            .enqueue(object : Callback<GetBookmarkLocationResponse> {
+                override fun onResponse(
+                    call: Call<GetBookmarkLocationResponse>,
+                    response: Response<GetBookmarkLocationResponse>
+                ) {
+                    if (response.isSuccessful && response.body()?.success == true) {
+                        // 버튼에 사용할 위치 데이터 목록 반환
+                        callback(response.body()?.result?.locations)
+                    } else {
+                        Log.e("WeatherAPI", "Failed to get locations: ${response.errorBody()?.string()}")
+                        callback(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<GetBookmarkLocationResponse>, t: Throwable) {
+                    Log.e("WeatherAPI", "Error: ${t.message}")
+                    callback(null)
+                }
+            })
+    }
+    private fun createLocationButtons(view: View, locations: List<GetBookmarkLocations>) {
+        val buttonContainer: LinearLayout = view.findViewById(R.id.buttonlinearlayout)
+        val tvAdminareaH: TextView = view.findViewById(R.id.tv_adminareaH)
+        val tvlocalityH: TextView = view.findViewById(R.id.tv_localityH)
+        val tvlocationText: TextView = view.findViewById(R.id.locationText)
+
+        buttonContainer.removeAllViews()
+
+        var firstButton: Button? = null
+
+        locations.forEachIndexed { index, location ->
+            val locationWords = location.locationInfo.split(" ")
+            val secondWord = locationWords.getOrNull(1) ?: ""
+            val thirdWord = locationWords.getOrNull(2) ?: ""
+            val fourthWord = locationWords.getOrNull(3)?:""
+            val button = Button(requireContext()).apply {
+                val lastWord = locationWords.lastOrNull() ?: location.locationInfo
+                text = lastWord
+
+                setOnClickListener {
+                    tvAdminareaH.text = secondWord
+                    tvlocalityH.text = thirdWord
+
+                    tvlocationText.text = "$fourthWord $lastWord"
+                    getHomeWeatherData(location.locationIndex)
+                }
+            }
+            if (index == 0) {
+                firstButton = button // 첫 번째 버튼 저장
+            }
+            buttonContainer.addView(button)
+        }
+        // 첫 번째 버튼 자동 선택
+        firstButton?.let {
+            it.isSelected = true
+            it.performClick()
+        }
+    }
+
+    private fun updateLocationSelection(selectedButton: Button, locationIndex: Int) {
+        val locationBtns = listOf(
+            requireView().findViewById<Button>(R.id.locationBtn1),
+            requireView().findViewById<Button>(R.id.locationBtn2),
+            requireView().findViewById<Button>(R.id.locationBtn3)
+        )
+
+        locationBtns.forEach { it.isSelected = it == selectedButton }
+
+
+        // locationIndex 값이 null 또는 0이 아니면 날씨 데이터 요청
+        if (locationIndex != 0) {
+            Log.d("WeatherAPI", "00Invalid locationIndex: $locationIndex")
+            getHomeWeatherData(locationIndex)
+        } else {
+            getHomeWeatherData(0)
+            Log.e("WeatherAPI", "Invalid locationIndex: $locationIndex")
+        }
+    }
+    
+    //예보 api
+    private fun getHomeWeatherData(locationIndex: Int) {
+        val token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNCIsImlhdCI6MTczODMxMDM4OCwiZXhwIjoxNzQwOTAyMzg4fQ.Pma0mIzOiSPvUto6Ya8qs1Cncoz5W2QBkOiZiGkiD40" // SharedPreferences에서 가져오거나 변경
+
+        // locationIndex가 0이면 현재 위치, 1,2,3은 각 버튼에 해당하는 위치
+        if (locationIndex == 0) {
+            // 현재 위치를 기준 날씨
+            if (latitude != 0.0 && longitude != 0.0) {  // 위경도가 유효한지 확인
+                Log.d("WeatherAPI??", "현재 위치의 위도: $latitude, 경도: $longitude")
+                LWRetrofitClient.service.homeCurrentLocationWeather(
+                    "Bearer $token", locationIndex, latitude, longitude
+                ).enqueue(object : Callback<homeCurrentLocationWeatherResponse> {
+                    override fun onResponse(
+                        call: Call<homeCurrentLocationWeatherResponse>,
+                        response: Response<homeCurrentLocationWeatherResponse>
+                    ) {
+                        if (response.isSuccessful && response.body()?.success == true) {
+                            response.body()?.result?.let {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    updateWeatherUI(it)
+                                } else {
+                                    Log.e("WeatherAPI", "This feature is not supported on API level < 26")
+                                }
+                            }
+                        } else {
+                            Log.d("WeatherAPI123", "현재 위치의 위도: $latitude, 경도: $longitude")
+                            Log.e("WeatherAPI11", "Failed: ${response.errorBody()?.string()}")
+                        }
+                    }
+
+                    override fun onFailure(call: Call<homeCurrentLocationWeatherResponse>, t: Throwable) {
+                        Log.e("WeatherAPI", "Error: ${t.message}")
+                    }
+                })
+            } else {
+                Log.e("WeatherAPI", "위도 또는 경도 값이 유효하지 않습니다.")
+            }
+        } else {
+            // 선택된 위치의 날씨
+            LWRetrofitClient.service.homeCurrentLocationWeather(
+                "Bearer $token", locationIndex, latitude, longitude
+            ).enqueue(object : Callback<homeCurrentLocationWeatherResponse> {
+                override fun onResponse(
+                    call: Call<homeCurrentLocationWeatherResponse>,
+                    response: Response<homeCurrentLocationWeatherResponse>
+                ) {
+                    if (response.isSuccessful && response.body()?.success == true) {
+                        response.body()?.result?.let {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                updateWeatherUI(it)
+                            } else {
+                                Log.e("WeatherAPI", "This feature is not supported on API level < 26")
+                            }
+                        }
+                    } else {
+                        Log.e("WeatherAPI", "Failed: ${response.errorBody()?.string()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<homeCurrentLocationWeatherResponse>, t: Throwable) {
+                    Log.e("WeatherAPI", "Error: ${t.message}")
+                }
+            })
+        }
+    }
+
+    private fun getCurrentLocationAndLoadWeather() {
+        Log.d("HomeFragment", "getCurrentLocationAndLoadWeather 호출됨")
+        currentLocation.getCurrentLocation { lat, lon ->
+            // 디버깅용 로그
+            Log.d("Location111", "위도: $latitude, 경도: $longitude")
+            latitude = lat
+            longitude = lon
+            Log.d("Location222", "위도: $latitude, 경도: $longitude")
+
+            // 날씨 데이터 가져오는 함수 호출 -> 기본은 1
+            getHomeWeatherData(1) 
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun addData() {
+    private fun updateWeatherUI(result: homeCurrentLocationWeatherResult) {
+
+        val currentTemp = result.temperature.replace("°C", "°")
+        val currentMinTemp = result.temperatureMin.replace("°C", "°")
+        val currentMaxTemp = result.temperatureMax.replace("°C", "°")
+        val currentHum = result.humidity.replace("%", "")
+        tvTemperature.text = currentTemp
+        tvMinTemperature.text = currentMinTemp
+        tvMaxTemperature.text = currentMaxTemp
+        tvHumidity.text = "$currentHum%"
+
+        // 습도 조건에 따른 텍스트 설정
+        val humidityValue = currentHum.toIntOrNull() ?: 0 // humidity가 숫자가 아닐 경우 0으로 처리
+
+        val humidityCondition = when {
+            humidityValue in 0..20 -> "매우 낮음"
+            humidityValue in 21..40 -> "낮음"
+            humidityValue in 41..60 -> "보통"
+            humidityValue in 61..80 -> "높음"
+            humidityValue >= 81 -> "매우 높음"
+            else -> "정보 없음"
+        }
+
+        // 습도 상태 텍스트 설정
+        val humidityConditionTextView: TextView = view?.findViewById(R.id.tv_humidcondition) ?: return
+        humidityConditionTextView.text = humidityCondition
 
         val now = LocalDateTime.now()
 
-        val hourlyTemp = listOf("4°", "3°", "2°", "2°", "1°", "0°", "-1°")
-        val hourlySky = listOf("흐림", "흐림", "구름 많음", "맑음", "맑음", "맑음", "맑음")
+        val hourlyTemp = result.hourlyTemp.map { it.replace("°C", "°") }
+        val hourlySky = result.hourlySky
 
-        // 시간 증가에 따른 데이터 추가
-        for (i in 0 until 7) {
-            val currentHour = now.plusHours(i.toLong()) 
-            val hourFormatted = currentHour.format(DateTimeFormatter.ofPattern("HH시")) // 시각 포맷
-            val temperature = hourlyTemp.getOrElse(i) { "0°" }
-            val sky = hourlySky.getOrElse(i) { "맑음" } 
-            
+        wList.clear() // 기존 데이터 초기화
+
+        // 시간별 데이터 추가
+        for (i in 0 until hourlyTemp.size) {
+            val currentHour = now.plusHours(i.toLong())
+            val hourFormatted = currentHour.format(DateTimeFormatter.ofPattern("HH시"))
+            val temperature = hourlyTemp.getOrElse(i) { "0°" } // 기본값 설정
+            val sky = hourlySky.getOrElse(i) { "흐림" } // 기본값 설정
+
+            // 날씨 이미지 설정
             val weatherImage = when (sky) {
-                "흐림" -> R.drawable.weather_cloudy
-                "맑음" -> R.drawable.weather_sun_cloudy
-                "구름 많음" -> R.drawable.weather_sun_cloudy
+                "맑음" -> R.drawable.weather_sun
+                "구름 조금" -> R.drawable.weather_sun_cloudy
+                "구름 많음" -> R.drawable.weather_cloudy_sun
                 else -> R.drawable.weather_cloudy
             }
 
             wList.add(HomeWeatherData(hourFormatted, weatherImage, temperature))
         }
+        hwadapter.notifyDataSetChanged()
     }
 }

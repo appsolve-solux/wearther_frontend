@@ -43,7 +43,7 @@ class LocationDeleteDialog(
             tvToast.text = toastMessage
 
 
-            val locationIndex = position
+            val locationIndex = position+1
             val token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNCIsImlhdCI6MTczODMxMDM4OCwiZXhwIjoxNzQwOTAyMzg4fQ.Pma0mIzOiSPvUto6Ya8qs1Cncoz5W2QBkOiZiGkiD40" // 실제 토큰을 여기에 넣어야 함
 
             LWRetrofitClient.service.deleteBookmarkLocation("Bearer $token", locationIndex)
@@ -67,6 +67,7 @@ class LocationDeleteDialog(
 
                             dialog.dismiss()
                         } else {
+                            Log.e("Location", "API Response Error: ${response.code()} - ${response.message()}")
                             Toast.makeText(context, "삭제 실패: ${response.code()}", Toast.LENGTH_SHORT).show()
                         }
                     }

@@ -42,16 +42,12 @@
     <!-- TODO: Update blank fragment layout -->
 
     <!--위치 버튼 레이아웃-->
-    <android.widget.HorizontalScrollView
-        android:id="@+id/linearLayout2"
+    <LinearLayout
+        android:id="@+id/buttonlinearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none"
         app:layout_constraintTop_toBottomOf="@+id/topLinearLayout">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/locationBtn1"
@@ -88,15 +84,14 @@
                 android:textColor="@drawable/home_btn_txt_color"
                 android:background="@drawable/home_btn_selector" />
 
-        </LinearLayout>
-    </android.widget.HorizontalScrollView>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/buttonlinearlayout"
         tools:ignore="MissingConstraints"
         android:layout_marginTop="10dp"
         tools:layout_editor_absoluteX="30dp">

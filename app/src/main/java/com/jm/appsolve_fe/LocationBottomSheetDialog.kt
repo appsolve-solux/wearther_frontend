@@ -1,5 +1,6 @@
 package com.jm.appsolve_fe
 
+import android.app.Activity
 import android.content.Context
 import android.location.Geocoder
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.core.location.LocationManagerCompat.getCurrentLocation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
@@ -44,13 +46,16 @@ class LocationBottomSheetDialog(
             override fun onItemClick(position: Int) {
                 val selectedLocation = mList[position]
                 val latLng = getLatLngFromAddress(context, selectedLocation.address)
+
                 // 선택된 위치를 서버로 전송
                 latLng?.let { (latitude, longitude) ->
                     val locationInfo = selectedLocation.address
                     val currentLocationIndex = bList.size + 1  // bList에 기반한 위치 인덱스 (현재 즐겨찾기 크기 + 1)
+                    Log.d("LocationInfo", "선택된 위치: $locationInfo, 인덱스: $currentLocationIndex")
 
                     // Retrofit 호출
                     postBookmarkLocation(context, locationInfo, currentLocationIndex, latitude, longitude)
+
 
                     onLocationSelected(selectedLocation, latLng)
                 }
@@ -155,6 +160,21 @@ class LocationBottomSheetDialog(
                         val result = response.body()?.result
                         if (result != null) {
                             Toast.makeText(context, "성공, ${result.locationInfo}, 인덱스: ${result.locationIndex}", Toast.LENGTH_SHORT).show()
+
+                            val activity = context as Activity
+                            // 여기서 날씨 데이터를 가져오도록 수정
+                            val getCurrentLocation = GetCurrentLocation(context)
+                            getCurrentLocation.setCurrentLocationTemperature(activity.findViewById(R.id.tv_locationtemperature)) // TextView 전달
+                            getCurrentLocation.getWeatherData(result.latitude, result.longitude)
+
+                            /*// 성공적으로 위치가 저장된 후 날씨 데이터 가져오기
+                            val latitude = result.latitude // API 응답에서 위도 값 받아오기
+                            val longitude = result.longitude // API 응답에서 경도 값 받아오기
+
+                            // GetCurrentLocation 객체 생성 후 날씨 정보 요청
+                            val getCurrentLocation = GetCurrentLocation(context)
+                            getCurrentLocation.getWeatherData(latitude, longitude)*/
+
                         } else {
                             Toast.makeText(context, "위치 저장 실패, 서버에서 응답을 받지 못했습니다.", Toast.LENGTH_SHORT).show()
                         }
