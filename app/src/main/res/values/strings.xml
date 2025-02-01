@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Appsolve_FE</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="email_domains">
+        <item>선택</item>
+        <item>gmail.com</item>
+        <item>naver.com</item>
+    </string-array>
 </resources>

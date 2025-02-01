@@ -23,7 +23,7 @@ import java.util.Locale
 
 class LocationBottomSheetDialog(
     private val bList: MutableList<BookmarkData>, // bList를 파라미터로 받음
-    private val onLocationSelected: (LocationData, Pair<Double, Double>?) -> Unit
+    private val onLocationSelected: (LocationData_l, Pair<Double, Double>?) -> Unit
 ) {
     fun show(context: Context) {
         val dialogBinding = SearchLocationDialogBinding.inflate(LayoutInflater.from(context))
@@ -83,7 +83,7 @@ class LocationBottomSheetDialog(
         dialog.show()
     }
 
-    private fun addLocToList(): List<LocationData> {
+    private fun addLocToList(): List<LocationData_l> {
         val locations = listOf(
             "대한민국 서울특별시 용산구 이촌동",
             "대한민국 서울특별시 용산구 원효로4가",
@@ -103,11 +103,11 @@ class LocationBottomSheetDialog(
             "대한민국 경기도 용인시 수지구 동천동",
         )
 
-        return locations.map { LocationData(it) }
+        return locations.map { LocationData_l(it) }
     }
 
     private fun filterList(
-        mList: List<LocationData>,
+        mList: List<LocationData_l>,
         query: String?,
         locationListAdapter: LocationAdapter
     ) {

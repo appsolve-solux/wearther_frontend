@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class LocationAdapter(var mList: List<LocationData>) :
+class LocationAdapter(var mList: List<LocationData_l>) :
     RecyclerView.Adapter<LocationAdapter.LocationViewHolder>() {
 
         interface OnItemClickListener {
@@ -28,7 +28,7 @@ class LocationAdapter(var mList: List<LocationData>) :
             }
         }
 
-        fun setFilteredList(mList: List<LocationData>) {
+        fun setFilteredList(mList: List<LocationData_l>) {
             this.mList = mList.toList()
             notifyDataSetChanged()
         }
