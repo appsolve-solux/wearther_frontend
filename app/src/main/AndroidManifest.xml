@@ -16,8 +16,7 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".closet.Closet_Product_Detail"
-            android:exported="false" />
+            android:name=".closet.Closet_Product_Detail" />
         <activity
             android:name=".closet.ClosetMain"
             android:exported="true">

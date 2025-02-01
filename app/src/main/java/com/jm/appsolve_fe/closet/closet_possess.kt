@@ -8,11 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jm.appsolve_fe.R
 import com.jm.appsolve_fe.closet.network.RetrofitClient
-import com.jm.appsolve_fe.closet.data.ClosestResponseWrapper
+import com.jm.appsolve_fe.closet.data.ClosetResponseWrapper
 import com.jm.appsolve_fe.closet.data.ClosetAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,8 +46,8 @@ class ClosetPossess : Fragment() {
         Log.d("ClosetPossess", "Fetching closet data with token: $token")
 
         RetrofitClient.instance.getClosetData("Bearer $token")
-            .enqueue(object : Callback<ClosestResponseWrapper> {
-                override fun onResponse(call: Call<ClosestResponseWrapper>, response: Response<ClosestResponseWrapper>) {
+            .enqueue(object : Callback<ClosetResponseWrapper> {
+                override fun onResponse(call: Call<ClosetResponseWrapper>, response: Response<ClosetResponseWrapper>) {
                     if (response.isSuccessful) {
                         val data = response.body()?.result
                         Log.d("ClosetPossess", "Fetched data: $data")
@@ -70,7 +69,7 @@ class ClosetPossess : Fragment() {
                     }
                 }
 
-                override fun onFailure(call: Call<ClosestResponseWrapper>, t: Throwable) {
+                override fun onFailure(call: Call<ClosetResponseWrapper>, t: Throwable) {
                     Log.e("ClosetPossess", "Error fetching data: ${t.message}")
                     Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
                 }

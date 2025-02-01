@@ -1,7 +1,7 @@
 package com.jm.appsolve_fe.closet.data
 
 
-data class ClosestResponseWrapper(
+data class ClosetResponseWrapper(
     val httpStatus: String,
     val success: Boolean,
     val result: ClosetResponseDto?,

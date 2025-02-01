@@ -1,18 +1,19 @@
 package com.jm.appsolve_fe.closet
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jm.appsolve_fe.R
 import com.jm.appsolve_fe.closet.network.RetrofitClient
-import com.jm.appsolve_fe.closet.data.ClosestResponseWrapper
+import com.jm.appsolve_fe.closet.data.ClosetResponseWrapper
 import com.jm.appsolve_fe.closet.data.ClosetAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,6 +34,13 @@ class ClosetProduct : Fragment() {
         closetAdapter = ClosetAdapter(emptyList(), emptyList(), emptyList())
         recyclerView.adapter = closetAdapter
 
+
+        // 📌 RecyclerView를 감싸는 LinearLayout 클릭 이벤트 설정
+        val recyclerContainer = view.findViewById<LinearLayout>(R.id.recyclerContainer)
+        recyclerContainer.setOnClickListener {
+            navigateToDetail()
+        }
+
         // ✅ 엑세스 토큰 사용하여 데이터 요청
         val accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzM4Mzk1NDY2LCJleHAiOjE3NDA5ODc0NjZ9.1qrUGeY3p8kZ3g0hYjJxHZJx9DHf52wmG-bTeKujE28"
         Log.d("ClosetProduct", "Fetching closet data with token: $accessToken")
@@ -41,12 +49,15 @@ class ClosetProduct : Fragment() {
         return view
     }
 
-    private fun fetchClosetData(token: String) {
-        Log.d("ClosetProduct", "Fetching closet data with token: $token")
+    private fun navigateToDetail() {
+        val intent = Intent(requireContext(), Closet_Product_Detail::class.java)
+        startActivity(intent)
+    }
 
+    private fun fetchClosetData(token: String) {
         RetrofitClient.instance.getRecommendedCloset("Bearer $token")
-            .enqueue(object : Callback<ClosestResponseWrapper> {
-                override fun onResponse(call: Call<ClosestResponseWrapper>, response: Response<ClosestResponseWrapper>) {
+            .enqueue(object : Callback<ClosetResponseWrapper> {
+                override fun onResponse(call: Call<ClosetResponseWrapper>, response: Response<ClosetResponseWrapper>) {
                     if (response.isSuccessful) {
                         val data = response.body()?.result
                         Log.d("ClosetProduct", "Fetched data: $data")
@@ -68,7 +79,7 @@ class ClosetProduct : Fragment() {
                     }
                 }
 
-                override fun onFailure(call: Call<ClosestResponseWrapper>, t: Throwable) {
+                override fun onFailure(call: Call<ClosetResponseWrapper>, t: Throwable) {
                     Log.e("ClosetProduct", "Error fetching data: ${t.message}")
                     Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
                 }
