@@ -45,7 +45,7 @@ interface LocationWeatherService {
     ): Call<currentBookmarkLocationWeatherResponse>
 
     //홈 현재 위치 날씨
-    @GET("/home/weather/{locationIndex}")
+    @GET("/home/weather/{locationIndex}") //+
     fun homeCurrentLocationWeather(
         @Header("Authorization") token: String,
         @Path("locationIndex") locationIndex: Int,
@@ -59,8 +59,8 @@ interface LocationWeatherService {
     fun homeRecommend(
         @Header("Authorization") token: String,
         @Path("locationIndex") locationIndex: Int,
-        latitude: Double,
-        longitude: Double
+        @Query("latitude") latitude: Double,
+        @Query("longitude") longitude: Double
     ):Call<homeRecommendResponse>
 
 }

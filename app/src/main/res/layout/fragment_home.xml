@@ -134,15 +134,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="오늘 날씨는 "
+            android:text="오늘은 "
             android:textSize="17sp"
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/tv_personalWeather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="쌀쌀"
+            android:text="쌀쌀한"
             android:textSize="17sp"
             android:textStyle="bold"
             android:textColor="@color/purple"/>
@@ -151,11 +152,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="하니 "
+            android:text=" 날씨로, "
             android:textSize="17sp"
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/tv_1stclothes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -174,6 +176,7 @@
             android:textColor="@color/purple"/>
 
         <TextView
+            android:id="@+id/tv_2ndclothes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -226,14 +229,16 @@
                 android:padding="10dp">
 
                 <ImageView
+                    android:id="@+id/recommendUpperImg"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:contentDescription="clothes1"
-                    android:src="@drawable/clothes_knit" />
+                    android:src="@drawable/clothes_upper_4" />
 
                 <TextView
+                    android:id="@+id/recommendUpperText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="니트"
@@ -255,14 +260,15 @@
                 tools:ignore="MissingConstraints">
 
                 <ImageView
+                    android:id="@+id/recommendLowerImg"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:src="@drawable/clothes_slacks" />
+                    android:src="@drawable/clothes_lower_4" />
 
                 <TextView
+                    android:id="@+id/recommendLowerText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="슬랙스"
@@ -286,13 +292,15 @@
                 tools:ignore="MissingConstraints">
 
                 <ImageView
+                    android:id="@+id/recommendOthersImg"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:src="@drawable/clothes_ugg_earmuffs" />
+                    android:src="@drawable/clothes_others_4" />
 
                 <TextView
+                    android:id="@+id/recommendOthersText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="어그 귀마개"

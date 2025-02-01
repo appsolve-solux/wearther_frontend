@@ -91,5 +91,6 @@ data class homeRecommendResponse(
 data class homeRecommendResult(
     val upper: List<Int>,
     val lower: List<Int>,
-    val other: List<Int>
+    val other: List<Int>,
+    val weatherInfo: String
 )
