@@ -1,5 +1,10 @@
 package com.jm.appsolve_fe
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.VectorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +17,8 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,8 +28,6 @@ import com.jm.appsolve_fe.retrofit.GetBookmarkLocations
 import com.jm.appsolve_fe.retrofit.LWRetrofitClient
 import com.jm.appsolve_fe.retrofit.homeCurrentLocationWeatherResponse
 import com.jm.appsolve_fe.retrofit.homeCurrentLocationWeatherResult
-import com.jm.appsolve_fe.retrofit.homeRecommendResponse
-import com.jm.appsolve_fe.retrofit.homeRecommendResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,7 +53,6 @@ class Home : Fragment() {
 
     //현재 위치 위경도
     private lateinit var currentLocation: GetCurrentLocation
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
     private lateinit var tvTemperature: TextView
@@ -108,23 +112,101 @@ class Home : Fragment() {
         locationBtn3 = view.findViewById(R.id.locationBtn3)
         locationBtn1.isSelected = true
 
-
         locationBtn1.setOnClickListener { updateLocationSelection(locationBtn1, 1) }
         locationBtn2.setOnClickListener { updateLocationSelection(locationBtn2, 2) }
         locationBtn3.setOnClickListener { updateLocationSelection(locationBtn3, 3) }
 
         // 현재 위치 날씨 자동 로드
         getCurrentLocationAndLoadWeather()
-
-        val clothesItemLayout: LinearLayout = view.findViewById(R.id.recommendClothes1)
-
-        clothesItemLayout.setOnClickListener {
-            // 다른 Fragment로 이동
-            (activity as HomeMainActivity).replaceFragment(TodayRecommended())
-        }
-
         // ClothingRecommendation 객체 초기화
         clothesRecommendToHome = ClothesRecommendToHome(requireContext())
+
+        val clothesItemLayout1: LinearLayout = view.findViewById(R.id.recommendClothes1)
+        val clothesItemLayout2: LinearLayout = view.findViewById(R.id.recommendClothes2)
+        val clothesItemLayout3: LinearLayout = view.findViewById(R.id.recommendClothes3)
+
+        clothesItemLayout1.setOnClickListener {
+            val recommendUpperImg: ImageView = view.findViewById(R.id.recommendUpperImg)
+            val recommendUpperText: TextView = view.findViewById(R.id.recommendUpperText)
+
+            // recommendUpperImg의 drawable 추출
+            val drawable = recommendUpperImg.drawable
+            val bitmap: Bitmap?
+
+            if (drawable is VectorDrawable) {
+                // VectorDrawable을 Bitmap으로 변환
+                bitmap = Bitmap.createBitmap(
+                    drawable.intrinsicWidth,
+                    drawable.intrinsicHeight,
+                    Bitmap.Config.ARGB_8888
+                )
+                val canvas = Canvas(bitmap)
+                drawable.setBounds(0, 0, canvas.width, canvas.height)
+                drawable.draw(canvas)
+            } else if (drawable is BitmapDrawable) {
+                // BitmapDrawable이면 그대로 사용
+                bitmap = (drawable as BitmapDrawable).bitmap
+            } else {
+                // 알 수 없는 drawable 타입 처리
+                bitmap = null
+                Log.e("ImageTransfer", "알 수 없는 drawable 타입: $drawable")
+            }
+
+            // Bitmap을 Bundle로 전달
+            bitmap?.let {
+                val bundle = Bundle()
+                bundle.putParcelable("imageBitmap", it)  // Bitmap 전달
+                bundle.putString("recommendText", recommendUpperText.text.toString())
+
+                // Fragment 전환
+                val todayRecommendedFragment = TodayRecommended()
+                todayRecommendedFragment.arguments = bundle
+                (activity as HomeMainActivity).replaceFragment(todayRecommendedFragment)
+            } ?: run {
+                Log.e("ImageTransfer", "이미지가 없습니다.")
+            }
+        }
+        clothesItemLayout2.setOnClickListener {
+            val recommendLowerImg: ImageView = view.findViewById(R.id.recommendLowerImg)
+            val recommendLowerText: TextView = view.findViewById(R.id.recommendLowerText)
+
+            // recommendLowerImg의 drawable 추출
+            val drawable = recommendLowerImg.drawable
+            val bitmap: Bitmap?
+
+            if (drawable is VectorDrawable) {
+                bitmap = Bitmap.createBitmap(
+                    drawable.intrinsicWidth,
+                    drawable.intrinsicHeight,
+                    Bitmap.Config.ARGB_8888
+                )
+                val canvas = Canvas(bitmap)
+                drawable.setBounds(0, 0, canvas.width, canvas.height)
+                drawable.draw(canvas)
+            } else if (drawable is BitmapDrawable) {
+                bitmap = (drawable as BitmapDrawable).bitmap
+            } else {
+                bitmap = null
+                Log.e("ImageTransfer", "알 수 없는 drawable 타입: $drawable")
+            }
+
+            // Bitmap을 Bundle로 전달
+            bitmap?.let {
+                val bundle = Bundle().apply {
+                    putParcelable("imageBitmap", it)  // Bitmap 전달
+                    putString("recommendText", recommendLowerText.text.toString())
+                }
+
+                // Fragment 전환
+                val todayRecommendedFragment = TodayRecommended()
+                todayRecommendedFragment.arguments = bundle
+                (activity as HomeMainActivity).replaceFragment(todayRecommendedFragment)
+            } ?: run {
+                Log.e("ImageTransfer", "이미지가 없습니다.")
+            }
+        }
+
+
         
         // 시간별 날씨 리사이클러뷰
         hwrecyclerView = view.findViewById(R.id.home_weather_recyclerView)
@@ -161,7 +243,6 @@ class Home : Fragment() {
     }
     private fun createLocationButtons(view: View, locations: List<GetBookmarkLocations>) {
 
-        Log.d("button","불러")
         val buttonContainer: LinearLayout = view.findViewById(R.id.buttonlinearlayout)
         val tvAdminareaH: TextView = view.findViewById(R.id.tv_adminareaH)
         val tvlocalityH: TextView = view.findViewById(R.id.tv_localityH)
@@ -175,12 +256,47 @@ class Home : Fragment() {
             val locationWords = location.locationInfo.split(" ")
             val secondWord = locationWords.getOrNull(1) ?: ""
             val thirdWord = locationWords.getOrNull(2) ?: ""
-            val fourthWord = locationWords.getOrNull(3)?:""
+            val fourthWord = locationWords.getOrNull(3) ?: ""
             val button = Button(requireContext()).apply {
                 val lastWord = locationWords.lastOrNull() ?: location.locationInfo
                 text = lastWord
 
+                // 내부 padding 제거
+                setPadding(0,0, 0,0)
+
+                // 기본 스타일 설정
+                val buttonBackground = GradientDrawable()
+                buttonBackground.shape = GradientDrawable.RECTANGLE
+                buttonBackground.cornerRadius = 70f
+                buttonBackground.setColor(ContextCompat.getColor(requireContext(), R.color.white))
+                buttonBackground.setStroke(3, ContextCompat.getColor(requireContext(), R.color.gray_A6A6A6))
+                background = buttonBackground
+
+                setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_A6A6A6))
+
+                // 클릭 시 스타일 변경
                 setOnClickListener {
+                    // 선택된 버튼의 스타일 적용
+                    buttonContainer.children.forEach {
+                        val btn = it as Button
+                        val defaultButtonBackground = GradientDrawable()
+                        defaultButtonBackground.shape = GradientDrawable.RECTANGLE
+                        defaultButtonBackground.cornerRadius = 70f
+                        defaultButtonBackground.setColor(ContextCompat.getColor(requireContext(), R.color.white))
+                        defaultButtonBackground.setStroke(1, ContextCompat.getColor(requireContext(), R.color.gray_A6A6A6))
+                        btn.background = defaultButtonBackground
+                        btn.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_A6A6A6))
+                        btn.isSelected = false
+                    }
+                    val selectedButtonBackground = GradientDrawable()
+                    selectedButtonBackground.shape = GradientDrawable.RECTANGLE
+                    selectedButtonBackground.cornerRadius = 70f
+                    selectedButtonBackground.setColor(ContextCompat.getColor(requireContext(), R.color.purple))
+                    selectedButtonBackground.setStroke(3, ContextCompat.getColor(requireContext(), R.color.purple))
+                    it.background = selectedButtonBackground
+                    (it as Button).setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    it.isSelected = true
+
                     tvAdminareaH.text = secondWord
                     tvlocalityH.text = thirdWord
 
@@ -188,14 +304,32 @@ class Home : Fragment() {
                     getHomeWeatherData(location.locationIndex)
                 }
             }
+
+            val params = LinearLayout.LayoutParams(
+                220,
+                80
+            ).apply {
+                setMargins(0, 0, 20, 0)
+            }
+
+            button.layoutParams = params
+
             if (index == 0) {
                 firstButton = button // 첫 번째 버튼 저장
             }
             buttonContainer.addView(button)
         }
+
         // 첫 번째 버튼 자동 선택
         firstButton?.let {
             it.isSelected = true
+            val selectedButtonBackground = GradientDrawable()
+            selectedButtonBackground.shape = GradientDrawable.RECTANGLE
+            selectedButtonBackground.cornerRadius = 20f
+            selectedButtonBackground.setColor(ContextCompat.getColor(requireContext(), R.color.purple)) // 배경색
+            selectedButtonBackground.setStroke(1, ContextCompat.getColor(requireContext(), R.color.purple)) // 테두리
+            it.background = selectedButtonBackground
+            it.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
             it.performClick()
         }
     }

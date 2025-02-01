@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.core.location.LocationManagerCompat.getCurrentLocation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
@@ -161,21 +160,13 @@ class LocationBottomSheetDialog(
                     if (response.isSuccessful) {
                         val result = response.body()?.result
                         if (result != null) {
-                            Toast.makeText(context, "성공, ${result.locationInfo}, 인덱스: ${result.locationIndex}", Toast.LENGTH_SHORT).show()
+                            //Toast.makeText(context, "성공, ${result.locationInfo}, 인덱스: ${result.locationIndex}", Toast.LENGTH_SHORT).show()
 
                             val activity = context as Activity
                             // 여기서 날씨 데이터를 가져오도록 수정
                             val getCurrentLocation = GetCurrentLocation(context)
                             getCurrentLocation.setCurrentLocationTemperature(activity.findViewById(R.id.tv_locationtemperature)) // TextView 전달
                             getCurrentLocation.getWeatherData(result.latitude, result.longitude)
-
-                            /*// 성공적으로 위치가 저장된 후 날씨 데이터 가져오기
-                            val latitude = result.latitude // API 응답에서 위도 값 받아오기
-                            val longitude = result.longitude // API 응답에서 경도 값 받아오기
-
-                            // GetCurrentLocation 객체 생성 후 날씨 정보 요청
-                            val getCurrentLocation = GetCurrentLocation(context)
-                            getCurrentLocation.getWeatherData(latitude, longitude)*/
 
                         } else {
                             Toast.makeText(context, "위치 저장 실패, 서버에서 응답을 받지 못했습니다.", Toast.LENGTH_SHORT).show()

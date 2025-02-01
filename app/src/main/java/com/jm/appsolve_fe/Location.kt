@@ -69,9 +69,6 @@ class Location : Fragment() {
             getCurrentLocation.setCurrentLocationTemperature(currentLocationTemperature)
         }
 
-
-
-
         bookmarkrecyclerView = view.findViewById(R.id.bookmark_location_recyclerView)
         bookmarkrecyclerView.setHasFixedSize(true)
         bookmarkrecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -184,11 +181,11 @@ class Location : Fragment() {
                 bookmarkadapter.notifyDataSetChanged()
 
                 latLng?.let { (latitude, longitude) ->
-                    Toast.makeText(
+                    /*.makeText(
                         requireContext(),
                         "위도: $latitude, 경도: $longitude",
                         Toast.LENGTH_SHORT
-                    ).show()
+                    ).show()*/
                 }
             }.show(requireContext())
         }

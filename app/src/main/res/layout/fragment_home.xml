@@ -135,7 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="오늘은 "
-            android:textSize="17sp"
+            android:textSize="16sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -144,7 +144,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="쌀쌀한"
-            android:textSize="17sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/purple"/>
 
@@ -153,7 +153,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text=" 날씨로, "
-            android:textSize="17sp"
+            android:textSize="16sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -162,7 +162,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="니트"
-            android:textSize="17sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/purple"/>
 
@@ -171,7 +171,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="와 "
-            android:textSize="17sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/purple"/>
 
@@ -181,7 +181,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="슬랙스"
-            android:textSize="17sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/purple"/>
 
@@ -190,7 +190,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="를 추천해요!"
-            android:textSize="17sp"
+            android:textSize="16sp"
             android:textStyle="bold"/>
 
     </LinearLayout>

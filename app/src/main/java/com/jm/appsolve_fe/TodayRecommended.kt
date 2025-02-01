@@ -1,38 +1,28 @@
 package com.jm.appsolve_fe
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [TodayRecommended.newInstance] factory method to
- * create an instance of this fragment.
- */
 class TodayRecommended : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var todayRecommendImg1: ImageView
+    private lateinit var todayRecommendText1: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     @SuppressLint("MissingInflatedId")
@@ -53,8 +43,26 @@ class TodayRecommended : Fragment() {
         val moreRecommendedBtn: Button = view.findViewById(R.id.moreRecommendBtn)
         moreRecommendedBtn.setOnClickListener {
             // Home로 이동
-            (activity as HomeMainActivity).replaceFragment(Closet())
+            (activity as HomeMainActivity).replaceFragment(Closet_Product_Detail())
         }
+
+        todayRecommendImg1 = view.findViewById(R.id.todayrecommendclothesimg1)
+        todayRecommendText1 = view.findViewById(R.id.todayrecommendclothestext1)
+
+        val receivedBitmap: Bitmap? = arguments?.getParcelable("imageBitmap")
+
+        if (receivedBitmap != null) {
+            todayRecommendImg1.setImageBitmap(receivedBitmap)
+        } else {
+            Log.e("ImageTransfer", "전달된 이미지가 없습니다.")
+        }
+        val recommendText = arguments?.getString("recommendText")
+        if (recommendText != null) {
+            todayRecommendText1.text = recommendText
+        } else {
+            Log.e("TextTransfer", "전달된 텍스트가 없습니다.")
+        }
+
 
         return view
     }
@@ -68,25 +76,5 @@ class TodayRecommended : Fragment() {
             v.setPadding(0, 0, 0 ,0)
             insets
         }
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TodayRecommended.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TodayRecommended().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

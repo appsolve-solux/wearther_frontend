@@ -36,12 +36,14 @@
             tools:ignore="MissingConstraints">
 
             <ImageView
+                android:id="@+id/todayrecommendclothesimg1"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
                 android:src="@drawable/clothes_knit" />
 
             <TextView
+                android:id="@+id/todayrecommendclothestext1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -98,6 +100,7 @@
                 android:padding="10dp">
 
                 <TextView
+                    android:id="@+id/otherclothestext1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -106,6 +109,7 @@
                     android:textSize="10sp" />
 
                 <ImageView
+                    android:id="@+id/otherclothesimg1"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_margin="5dp"
@@ -124,6 +128,7 @@
                 tools:ignore="MissingConstraints">
 
                 <TextView
+                    android:id="@+id/otherclothestext2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -132,6 +137,7 @@
                     android:textSize="10sp" />
 
                 <ImageView
+                    android:id="@+id/otherclothesimg2"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_margin="5dp"
