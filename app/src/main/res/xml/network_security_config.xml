@@ -3,4 +3,8 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">54.180.114.64</domain>
     </domain-config>
+<<<<<<< HEAD
 </network-security-config>
+=======
+</network-security-config>
+>>>>>>> dev
