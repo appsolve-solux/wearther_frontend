@@ -1,17 +1,343 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple"
-    tools:context=".Home">
+    android:background="@drawable/home_background_color"
+    android:paddingHorizontal="30dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="40dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
+    <!--탑바 레이아웃-->
+    <LinearLayout
+        android:id="@+id/topLinearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Home Fragment"
-        android:textSize="26dp"
-        android:layout_gravity="center"/>
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:backgroundTint="@android:color/transparent"
+        tools:ignore="MissingConstraints">
 
-</FrameLayout>
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:src="@drawable/home_logo"
+            android:layout_gravity="end|bottom"
+            android:contentDescription="@string/app_name"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <ImageButton
+            android:id="@+id/gotoLocationBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/location_logo"
+            android:background="@android:color/transparent"
+            android:contentDescription="Go to Location Page"/>
+    </LinearLayout>
+    <!-- TODO: Update blank fragment layout -->
+
+    <!--위치 버튼 레이아웃-->
+    <LinearLayout
+        android:id="@+id/buttonlinearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@+id/topLinearLayout">
+
+            <Button
+                android:id="@+id/locationBtn1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="0dp"
+                android:layout_marginRight="5dp"
+                android:padding="5dp"
+                android:text="청파동 3가"
+                android:textSize="16sp"
+                android:textColor="@drawable/home_btn_txt_color"
+                android:background="@drawable/home_btn_selector"/>
+
+            <Button
+                android:id="@+id/locationBtn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="0dp"
+                android:layout_marginRight="5dp"
+                android:padding="5dp"
+                android:text="송파1동"
+                android:textSize="16sp"
+                android:textColor="@drawable/home_btn_txt_color"
+                android:background="@drawable/home_btn_selector" />
+
+            <Button
+                android:id="@+id/locationBtn3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="0dp"
+                android:padding="5dp"
+                android:text="청파동 1가"
+                android:textSize="16sp"
+                android:textColor="@drawable/home_btn_txt_color"
+                android:background="@drawable/home_btn_selector" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/buttonlinearlayout"
+        tools:ignore="MissingConstraints"
+        android:layout_marginTop="10dp"
+        tools:layout_editor_absoluteX="30dp">
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="11월 21일"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="  |  "
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/locationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="용산구 청파동2가"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        tools:ignore="MissingConstraints"
+        android:layout_marginTop="3dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="오늘은 "
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_personalWeather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="쌀쌀한"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/purple"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text=" 날씨로, "
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_1stclothes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="니트"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/purple"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="와 "
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/purple"/>
+
+        <TextView
+            android:id="@+id/tv_2ndclothes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="슬랙스"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/purple"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="를 추천해요!"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout10"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="30dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:id="@+id/recommendClothes1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/clothes_background"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/recommendUpperImg"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:contentDescription="clothes1"
+                    android:src="@drawable/clothes_upper_4" />
+
+                <TextView
+                    android:id="@+id/recommendUpperText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="니트"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/recommendClothes2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/clothes_background"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp"
+                tools:ignore="MissingConstraints">
+
+                <ImageView
+                    android:id="@+id/recommendLowerImg"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/clothes_lower_4" />
+
+                <TextView
+                    android:id="@+id/recommendLowerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="슬랙스"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/recommendClothes3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/clothes_background"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp"
+                tools:ignore="MissingConstraints">
+
+                <ImageView
+                    android:id="@+id/recommendOthersImg"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/clothes_others_4" />
+
+                <TextView
+                    android:id="@+id/recommendOthersText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="어그 귀마개"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/linearlayout_temp"
+            layout="@layout/home_temperature_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+
+        <include
+            android:id="@+id/linearlayout_hum"
+            layout="@layout/home_humidity_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            app:layout_constraintTop_toBottomOf="@+id/linearlayout_temp" />
+
+        <include
+            layout="@layout/home_weather_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            app:layout_constraintTop_toBottomOf="@+id/linearlayout_hum" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

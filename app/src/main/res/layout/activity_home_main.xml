@@ -30,9 +30,10 @@
         app:itemIconTint="@drawable/bottom_nav_select_color"
         app:itemTextColor="@drawable/bottom_nav_select_color"
         app:itemRippleColor="@android:color/transparent"
+
+        app:itemBackground="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav" />
 </androidx.constraintlayout.widget.ConstraintLayout>
