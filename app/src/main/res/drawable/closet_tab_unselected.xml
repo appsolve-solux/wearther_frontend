@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+  <solid android:color="@color/gray_EAEBEE" /> <!-- 기본 탭 배경색 -->
+  <corners android:radius="300dp" /> <!-- 둥근 모서리 -->
+</shape>
