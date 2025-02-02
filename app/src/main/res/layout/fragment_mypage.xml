@@ -66,10 +66,9 @@
                 android:background="@drawable/btn_border_white"
                 android:textColor="@color/white"
                 android:layout_gravity="center"
-                android:backgroundTint="@null"
+                android:backgroundTint="@android:color/transparent"
                 android:stateListAnimator="@null"
                 android:layout_marginBottom="20dp"
-                style="@style/Widget.AppCompat.Button"
                 android:layout_marginTop="20dp"/>
 
         </LinearLayout>
@@ -98,6 +97,7 @@
                 android:src="@drawable/mypagepurpleline"/>
 
             <TextView
+                android:id="@+id/tvDeleteAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="계정 삭제"
@@ -114,6 +114,7 @@
                 android:layout_gravity="center"/>
 
             <TextView
+                android:id="@+id/tvLogout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="로그아웃"

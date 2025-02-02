@@ -15,8 +15,8 @@ class ProfileEditActivity : AppCompatActivity() {
         val backBtn = findViewById<ImageView>(R.id.backBtn)
 
         backBtn.setOnClickListener{
-            val intent = Intent(this, Mypage::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, Mypage::class.java)
+//            startActivity(intent)
             finish()
         }
 
