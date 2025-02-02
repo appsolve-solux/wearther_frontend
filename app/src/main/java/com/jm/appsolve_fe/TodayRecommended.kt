@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
@@ -43,7 +42,7 @@ class TodayRecommended : Fragment() {
         val moreRecommendedBtn: Button = view.findViewById(R.id.moreRecommendBtn)
         moreRecommendedBtn.setOnClickListener {
             // Home로 이동
-            (activity as HomeMainActivity).replaceFragment(Closet_Product_Detail())
+            (activity as HomeMainActivity).replaceFragment(ClosetProductDetail())
         }
 
         todayRecommendImg1 = view.findViewById(R.id.todayrecommendclothesimg1)

@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jm.appsolve_fe.ClosetProductDetailActivity
 import com.jm.appsolve_fe.R
 import com.jm.appsolve_fe.closet.network.RetrofitClient
 import com.jm.appsolve_fe.closet.data.ClosetResponseWrapper
@@ -50,7 +51,7 @@ class ClosetProduct : Fragment() {
     }
 
     private fun navigateToDetail() {
-        val intent = Intent(requireContext(), Closet_Product_Detail::class.java)
+        val intent = Intent(requireContext(), ClosetProductDetailActivity::class.java)
         startActivity(intent)
     }
 

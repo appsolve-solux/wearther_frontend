@@ -13,7 +13,7 @@
         android:orientation="horizontal"
         android:backgroundTint="@android:color/white"
         tools:ignore="MissingConstraints"
-        android:padding="10dp"
+        android:padding="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
