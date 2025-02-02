@@ -1,6 +1,5 @@
 package com.jm.appsolve_fe
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.jm.appsolve_fe.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class HomeMainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
 
