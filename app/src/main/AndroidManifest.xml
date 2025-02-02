@@ -72,9 +72,6 @@
             android:name=".LoginSignUpEmailActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
             android:name=".LoginSplashActivity"
             android:exported="true">
             <intent-filter>
