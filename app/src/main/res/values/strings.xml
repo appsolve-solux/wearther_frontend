@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Appsolve_FE</string>
+
+    <string-array name="email_domains">
+        <item>선택</item>
+        <item>gmail.com</item>
+        <item>naver.com</item>
+    </string-array>
+
+    <string name="hello_blank_fragment">Hello Blank Fragment</string>
 </resources>

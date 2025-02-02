@@ -1,0 +1,96 @@
+[33mcommit f6774b402bc77ce040ddb80f57745d5f52a9e6c0[m[33m ([m[1;36mHEAD -> [m[1;32mfeature/home[m[33m)[m
+Author: vahkjsdf <vahkjsdf@sookmyung.ac.kr>
+Date:   Thu Jan 23 17:29:09 2025 +0900
+
+    feat: 삭제 toast 추가
+
+[33mcommit a20a7cc057025ad208bb44bed412331f012e4cdd[m
+Author: vahkjsdf <vahkjsdf@sookmyung.ac.kr>
+Date:   Thu Jan 23 16:29:51 2025 +0900
+
+    feat: alert 추가
+
+[33mcommit 7c87edd608aef89b7243d30cb4c330cbdcebbff4[m
+Author: vahkjsdf <vahkjsdf@sookmyung.ac.kr>
+Date:   Thu Jan 23 02:18:17 2025 +0900
+
+    feat: 즐겨찾기 추가
+
+[33mcommit 1131b68d919283978c243597a3e1f284df9d6782[m
+Author: vahkjsdf <vahkjsdf@sookmyung.ac.kr>
+Date:   Thu Jan 23 00:55:11 2025 +0900
+
+    feat: 위치 클릭
+
+[33mcommit 66a9318465a0acd9cea734df544fb216ea9085b1[m
+Author: vahkjsdf <vahkjsdf@sookmyung.ac.kr>
+Date:   Tue Jan 21 22:04:09 2025 +0900
+
+    feat: bottom nav ripple 제거
+
+[33mcommit 505f2d00b87fe75b225acc574106c8c94e260396[m
+Author: vahkjsdf <vahkjsdf@sookmyung.ac.kr>
+Date:   Tue Jan 21 21:53:37 2025 +0900
+
+    feat: 검ì위치 검색 필터링
+
+[33mcommit c0aee02161ad458c28409c83449ab4ccae43bf37[m
+Author: vahkjsdf <vahkjsdf@sookmyung.ac.kr>
+Date:   Mon Jan 20 23:27:54 2025 +0900
+
+    design: 상단바 그ë림자 추가
+
+[33mcommit a6872bc6c127cbe27f22db08f53a6a61a4d67c71[m[33m ([m[1;31morigin/feature/home[m[33m)[m
+Author: vahkjsdf <vahkjsdf@sookmyung.ac.kr>
+Date:   Mon Jan 20 23:18:20 2025 +0900
+
+    feat: 홈, 오늘의 추천템, 위치, 상단바바 추가
+
+[33mcommit 8e0ff1aca807585ad957f93791384215492043a5[m
+Author: vahkjsdf <vahkjsdf@sookmyung.ac.kr>
+Date:   Tue Jan 7 02:39:47 2025 +0900
+
+    feat: bottom nav 추가
+
+[33mcommit 6caf0b4cc8b0a73fc88c7923de65d317cf2846ef[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/feature/mypage[m[33m, [m[1;31morigin/feature/login[m[33m, [m[1;31morigin/feature/closet[m[33m, [m[1;31morigin/dev[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m, [m[1;32mfeature/mypage[m[33m, [m[1;32mfeature/login[m[33m, [m[1;32mfeature/closet[m[33m, [m[1;32mdev[m[33m)[m
+Author: vahkjsdf <vahkjsdf@sookmyung.ac.kr>
+Date:   Mon Dec 30 16:13:45 2024 +0900
+
+    Docs: add colors
+
+[33mcommit f35482b5d52a62c25cc6829f376935d9a9f0524a[m
+Author: vahkjsdf <130419090+vahkjsdf@users.noreply.github.com>
+Date:   Mon Dec 30 15:20:31 2024 +0900
+
+    Delete wearther_frontend directory
+
+[33mcommit 56fa68908dcab9d3c470c744e14cb2949d165e82[m
+Author: vahkjsdf <vahkjsdf@sookmyung.ac.kr>
+Date:   Mon Dec 30 15:16:23 2024 +0900
+
+    Docs: .git file 삭제
+
+[33mcommit 2c56cec3fdc4f151b1011b79325574b76a788205[m
+Author: vahkjsdf <vahkjsdf@sookmyung.ac.kr>
+Date:   Mon Dec 30 15:08:49 2024 +0900
+
+    Chore: build ãd gradle ã 수정
+
+[33mcommit 70003e0423b27f0c6fde89549e62fd6f9e8c0126[m
+Merge: 7c6c785 3ad3a71
+Author: vahkjsdf <vahkjsdf@sookmyung.ac.kr>
+Date:   Mon Dec 30 14:54:44 2024 +0900
+
+    Merge branch 'main' of https://github.com/appsolve-solux/wearther_frontend
+
+[33mcommit 7c6c785d26e9c2a83aa3ce03f22e0459674c56c6[m
+Author: vahkjsdf <vahkjsdf@sookmyung.ac.kr>
+Date:   Mon Dec 30 14:53:50 2024 +0900
+
+    Initial Commit
+
+[33mcommit 3ad3a71eae23b07014fe9ae9766b99d68154af24[m
+Author: Seonghyun Park <140165337+qkrtjdgusl@users.noreply.github.com>
+Date:   Tue Nov 26 22:53:05 2024 +0900
+
+    Initial commit

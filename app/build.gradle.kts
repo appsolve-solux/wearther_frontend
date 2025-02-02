@@ -26,6 +26,12 @@ android {
             )
         }
     }
+
+    buildFeatures{
+        viewBinding = true
+        dataBinding = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -42,7 +48,16 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
+    implementation(libs.androidx.databinding.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.google.android.gms:play-services-location:21.3.0")
+
+    implementation(libs.androidx.gridlayout)
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.10.0")
 }

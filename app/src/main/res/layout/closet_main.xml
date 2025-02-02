@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/topLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:backgroundTint="@android:color/white"
+        tools:ignore="MissingConstraints"
+        android:padding="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:src="@drawable/home_logo"
+            android:layout_gravity="end|bottom"
+            android:contentDescription="@string/app_name"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <ImageButton
+            android:id="@+id/gotoLocationBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/location_logo"
+            android:background="@android:color/transparent"
+            android:contentDescription="Go to Location Page"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:background="@color/purple"
+            android:layout_weight="0.8">
+
+            <TextView
+                android:id="@+id/tab_possess"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="보유한 옷"
+                android:textSize="20dp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@color/purple" />
+
+            <TextView
+                android:id="@+id/tab_product"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="추천 상품"
+                android:textSize="20dp"
+                android:textColor="@color/gray_757577"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@color/gray_EAEBEE" />
+        </LinearLayout>
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9.2" />
+    </LinearLayout>
+</LinearLayout>

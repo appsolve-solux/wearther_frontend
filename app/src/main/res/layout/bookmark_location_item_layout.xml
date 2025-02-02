@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tv_bookmark"
+    android:paddingVertical="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/location_box_background"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
+
+
+            <TextView
+                android:id="@+id/tv_1st_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:text="서울특별시"
+                android:layout_marginTop="-13dp"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_2nd_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="용산구"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="23sp"/>
+            <TextView
+                android:id="@+id/tv_3rd_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+
+                android:text="청파동2가"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="23sp"/>
+
+            <ImageView
+                android:id="@+id/bookmark_deletebtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="7dp"
+                android:src="@drawable/location_bookmark"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_locationtemperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:text="16°"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical"
+                tools:ignore="MissingConstraints">
+
+                <ImageView
+                    android:id="@+id/locationup"
+                    android:layout_width="15dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/location_up" />
+
+                <ImageView
+                    android:id="@+id/locationdown"
+                    android:layout_width="15dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/location_down" />
+            </LinearLayout>
+        </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:src="@drawable/home_location_sun"
+            android:scaleType="matrix"
+            android:layout_marginTop="-20dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="-10dp"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
