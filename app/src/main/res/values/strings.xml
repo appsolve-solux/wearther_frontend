@@ -6,4 +6,6 @@
         <item>gmail.com</item>
         <item>naver.com</item>
     </string-array>
+
+    <string name="hello_blank_fragment">Hello Blank Fragment</string>
 </resources>
