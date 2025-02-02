@@ -59,5 +59,4 @@ class Closet : Fragment() {
         companion object {
             fun newInstance() = Closet()
         }
-
 }

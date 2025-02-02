@@ -3,15 +3,170 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_CFD2D7"
+    android:background="@color/white"
     tools:context=".Mypage">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mypage Fragment"
-        android:textSize="26dp"
-        android:layout_gravity="center"/>
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/backBtn"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/back"/>
+
+            <TextView
+                android:layout_width="330dp"
+                android:layout_height="match_parent"
+                android:text="마이페이지"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/purple">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/mypageprofile"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="user1234"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_marginTop="9dp"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:id="@+id/btnEditProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="프로필 편집"
+                android:background="@drawable/btn_border_white"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:backgroundTint="@android:color/transparent"
+                android:stateListAnimator="@null"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="40dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="계정 "
+                android:textColor="@color/purple"
+                android:textSize="20sp"
+                android:layout_marginLeft="55dp"
+                android:drawableEnd="@drawable/account"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/mypagepurpleline"/>
+
+            <TextView
+                android:id="@+id/tvDeleteAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="계정 삭제"
+                android:layout_marginLeft="55dp"
+                android:textColor="@color/gray_9E9E9E"
+                android:textSize="15sp"
+                android:layout_marginTop="12dp"/>
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/mypagegrayline"
+                android:layout_marginTop="6dp"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/tvLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="로그아웃"
+                android:layout_marginLeft="55dp"
+                android:textColor="@color/gray_9E9E9E"
+                android:textSize="15sp"
+                android:layout_marginTop="6dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="설정 "
+                android:textColor="@color/purple"
+                android:textSize="20sp"
+                android:drawableEnd="@drawable/settings"
+                android:layout_marginLeft="55dp"
+                android:layout_marginTop="55dp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/mypagepurpleline"
+                android:layout_marginTop="6dp"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="푸쉬 알림"
+                    android:layout_marginLeft="55dp"
+                    android:textColor="@color/gray_9E9E9E"
+                    android:textSize="15sp"
+                    android:layout_marginTop="12dp"
+                    android:layout_weight="1"/>
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="200dp"
+                    android:thumbTint="@color/purple" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

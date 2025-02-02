@@ -1,6 +1,7 @@
 package com.jm.appsolve_fe
 
 import android.os.Bundle
+
 import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
